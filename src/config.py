@@ -60,7 +60,8 @@ GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 GROQ_FALLBACK_MODEL = os.getenv("GROQ_FALLBACK_MODEL", "qwen/qwen3.8-27b")
 GROQ_TIMEOUT = float(os.getenv("GROQ_TIMEOUT", "30.0"))
 
-# Configurações do Modelo Local (Ollama - Fallback Opcional)
+# Configurações do Modelo Local (Ollama - Provedor Padrão: Qwen 2.5 7B com Fallback 3B)
+# Decisão técnica e arquitetural documentada no ADR 0003.
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
 OLLAMA_FALLBACK_MODEL = os.getenv("OLLAMA_FALLBACK_MODEL", "qwen2.5:3b")

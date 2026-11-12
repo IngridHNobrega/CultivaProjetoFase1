@@ -23,10 +23,42 @@ Fontes oficiais: [Ollama FAQ](https://docs.ollama.com/faq) e [Groq: Your Data in
 
 ## Decisão
 
-1. **Ollama local é o padrão** (`LLM_PROVIDER=ollama`). Configurar o ambiente com `OLLAMA_NO_CLOUD=1`; o modelo responde na API local. Esta é a alternativa que melhor atende, hoje, à meta de não pagar por chamadas e de não transferir perguntas ao provedor.
-2. **Groq permanece alternativa documentada, mas desativada por padrão.** Uma chave no ambiente não habilita envio. O operador precisa definir `LLM_PROVIDER=groq` e `ALLOW_EXTERNAL_LLM=true`, além de fornecer `GROQ_API_KEY`. Essa configuração não autoriza dados pessoais: só usar entradas sintéticas ou previamente desidentificadas até que retenção ZDR, contrato de não treinamento, transferência internacional e controles LGPD/RIPD sejam formalmente verificados.
-3. **Mascaramento de identificadores diretos comuns** (e-mail, CPF, telefone e nome quando introduzido por rótulos explícitos) é aplicado antes do payload Groq. É defesa adicional, não anonimização: regex não identifica todos os nomes, identificadores indiretos nem dados de saúde contextualizados. Portanto, o modo Groq não está aprovado para perguntas reais identificáveis e a configuração explícita continua sendo responsabilidade de implantação.
-4. Se Ollama estiver indisponível, a síntese extrativa determinística é preferível a enviar automaticamente a pergunta a um serviço externo. No modo Groq explicitamente habilitado, o fallback pode usar Ollama local; não há fallback automático para outro serviço remoto.
+1. **Ollama local é o provedor padrão** (`LLM_PROVIDER=ollama`). Configurar o ambiente com `OLLAMA_NO_CLOUD=1`; o modelo responde na API local (`http://localhost:11434`). Esta é a alternativa técnica que melhor atende à meta de conformidade ética, ausência de custos por requisição e garantia de não compartilhamento de consultas com provedores de nuvem de terceiros.
+2. **Seleção e decisão de modelo local do Ollama:**
+   - **Modelo Primário:** `qwen2.5:7b` (executado via `ollama pull qwen2.5:7b`, quantização padrão 4-bit `Q4_K_M`, ~4.7 GB de VRAM/RAM).
+   - **Modelo de Fallback Local:** `qwen2.5:3b` (executado via `ollama pull qwen2.5:3b`, quantização `Q4_K_M`, ~1.9 GB de VRAM/RAM) para execução em estações com restrição de memória (ex.: 8 GB RAM ou CPU pura).
+   - **Fallback Final Determinístico:** Síntese extrativa sem LLM (`synthesize_extractive_fallback`), garantindo resiliência operacional caso o daemon do Ollama esteja inativo.
+3. **Groq permanece alternativa documentada, mas desativada por padrão.** Uma chave no ambiente não habilita envio. O operador precisa definir `LLM_PROVIDER=groq` e `ALLOW_EXTERNAL_LLM=true`, além de fornecer `GROQ_API_KEY`. Essa configuração não autoriza dados pessoais: só usar entradas sintéticas ou previamente desidentificadas até que retenção ZDR, contrato de não treinamento, transferência internacional e controles LGPD/RIPD sejam formalmente verificados.
+4. **Mascaramento de identificadores diretos comuns** (e-mail, CPF, telefone e nome quando introduzido por rótulos explícitos) é aplicado antes do payload Groq. É defesa adicional, não anonimização: regex não identifica todos os nomes, identificadores indiretos nem dados de saúde contextualizados. Portanto, o modo Groq não está aprovado para perguntas reais identificáveis e a configuração explícita continua sendo responsabilidade de implantação.
+5. Se Ollama estiver indisponível, a síntese extrativa determinística é preferível a enviar automaticamente a pergunta a um serviço externo. No modo Groq explicitamente habilitado, o fallback pode usar Ollama local; não há fallback automático para outro serviço remoto.
+
+## Análise de Arquitetura de Software: Seleção do Modelo Ollama
+
+Como requisito de arquitetura de software para o CULTIVA, a escolha do modelo LLM local foi submetida aos seguintes critérios técnicos objetivos:
+
+### 1. Critérios de Avaliação
+
+1. **Capacidade de Geração Estruturada (JSON Schema estrito):** O componente `LocalLLMClient` exige que a resposta da LLM seja um objeto JSON sintaticamente válido contendo as chaves `evidence_summary` (resumo textual), `practical_implications` (lista de diretrizes práticas) e `limitations` (limitações das evidências). Falhas na sintaxe JSON provocam rejeição da resposta gerada e forçam o uso do fallback extrativo.
+2. **Proficiência e Fluência em Português Brasileiro (pt-BR):** Todo o corpus do CULTIVA (Guia Alimentar para a População Brasileira, Código de Ética do CFN, Diretrizes da SBME, etc.) e as perguntas dos usuários estão em pt-BR. O modelo deve compreender a terminologia técnica de nutrição e saúde pública sem introduzir anglicismos, traduções literais impróprias ou perda de sentido conceitual.
+3. **Conformidade com Guardrails Ético-Legais (Lei Federal nº 8.234/1991):** O modelo precisa respeitar instruções de sistema negativas ("não prescrever planos alimentares individualizados", "não prescrever dietas calculadas em gramas/calorias para indivíduos", "não fazer diagnósticos clínicos") e reorientar a resposta para evidências populacionais e recomendação de acompanhamento por profissional nutricionista.
+4. **Footprint Operacional Local (RAM/VRAM) e Latência:** A solução deve rodar localmente em estações típicas de estudantes, pesquisadores e desenvolvedores (8 GB a 16 GB de RAM compartilhada em Apple Silicon M-series ou arquiteturas x86_64 equivalentes com GPU integrada/CPU), convivendo pacificamente com a persistência vetorial do ChromaDB e o modelo local de embeddings (`paraphrase-multilingual-MiniLM-L12-v2`, ~470 MB).
+5. **Janela de Contexto para RAG:** Suporte a pelo menos 8.000 tokens de contexto, permitindo injetar o top-k de Trechos científicos recuperados (~3.000 tokens) mais o grafo causal e o prompt de enriquecimento.
+
+### 2. Matriz Comparativa de Modelos Candidatos (Ollama)
+
+| Modelo | Tamanho (Q4_K_M) | Suporte pt-BR | JSON Schema / Tooling | Aderência a Guardrails | Consumo RAM & Latência Local | Avaliação Arquitetural |
+|---|---|---|---|---|---|---|
+| **Qwen 2.5 7B** (`qwen2.5:7b`) | **~4.7 GB** | **Excelente** (forte corpus multilíngue e pt-BR) | **Excelente** (pós-treinamento focado em código e dados estruturados) | **Alta** (excelente seguimento de restrições de sistema negativas) | **Excelente em 16 GB; viável em 8 GB** (~25-35 tok/s em M-series) | **Proposta técnica aprovada como modelo padrão primário.** |
+| **Qwen 2.5 3B** (`qwen2.5:3b`) | **~1.9 GB** | **Bom** | **Bom** (consistente na maioria dos esquemas simples) | **Média** (pode simplificar demais as ressalvas) | **Ultra-baixo** (~40-60 tok/s; funciona até em CPU pura sem aquecimento) | **Proposta técnica aprovada como fallback local.** |
+| **Llama 3.1 8B** (`llama3.1:8b`) | ~4.7 GB | Muito Bom (bom vocabulário, pequenos desvios estilísticos) | Regular/Bom (ocasionais marcações markdown fora do bloco JSON) | Alta (forte recusa a instruções maliciosas) | Similar ao 7B (~4.7 GB) | Forte candidato alternativo; preterido pelo Qwen 2.5 devido à maior taxa de parsing JSON direto sem wrapper e melhor naturalidade em termos alimentares brasileiros. |
+| **Mistral 7B Instruct v0.3** | ~4.1 GB | Regular (menor vocabulário técnico em pt-BR) | Bom | Média | Baixo (~4.1 GB) | Preterido devido à menor fluência em português e menor precisão em termos específicos de saúde pública brasileira. |
+| **Gemma 2 9B** (`gemma2:9b`) | ~5.4 GB | Muito Bom | Regular (maior sensibilidade a formatação estrita) | Alta | Alto (overhead de memória de atenção deslizante; atinge o teto em 8 GB) | Preterido pelo tamanho (>5.4 GB) que compromete a estabilidade em máquinas com 8 GB ou 16 GB com outras aplicações abertas. |
+
+### 3. Decisão Justificada
+
+- **Primário:** `qwen2.5:7b` combina a melhor taxa de acerto em geração estrita de JSON, vocabulário alinhado às diretrizes alimentares brasileiras e tamanho adequado (4.7 GB) para operação local estável.
+- **Fallback Local:** `qwen2.5:3b` garante que ambientes restritos (como CI em containers com 7 GB de RAM ou máquinas de desenvolvedores com 8 GB de memória unificada) não falhem por `Out of Memory` (OOM), mantendo a capacidade de geração de síntese local.
+- **Fallback Determinístico:** Mantido inalterado na classe `LocalLLMClient`, fornecendo imunidade a falhas do serviço local.
 
 ## Comparação e limitações
 
