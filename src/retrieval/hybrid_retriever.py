@@ -10,6 +10,9 @@ from sklearn.preprocessing import normalize
 
 from src.config import (
     MAX_CHUNKS_PER_DOC,
+    MODO_DENSO,
+    RERANK_BONUS_EVIDENCIA,
+    RERANK_PESO_SOBREPOSICAO,
     RRF_K,
     TOP_K_BM25,
     TOP_K_FINAL,
@@ -113,11 +116,16 @@ def tokenize_biomedical(text: str) -> List[str]:
 
 class HybridRetriever:
     """
-    Motor de Busca Híbrida da Fase 1 (Baseline):
+    Motor de Busca Híbrida:
     1. Índice Léxico BM25 (termos exatos, siglas, biomarcadores e compostos).
-    2. Índice Vetorial Denso Local (TF-IDF n-gramas + SVD/LSA normalizado por cosseno).
+    2. Índice Vetorial Denso no ChromaDB (embeddings multilíngues 384d). Padrão desde a issue #35
+       (`MODO_DENSO="chromadb_pure"`). O índice local TF-IDF n-gramas + SVD/LSA só é construído
+       quando usado: no modo `chromadb_dense` (mistura 55% ChromaDB + 45% LSA), no `legacy_lsa`
+       ou como alternativa quando o ChromaDB está desligado.
     3. Reciprocal Rank Fusion (RRF) combinando rankings léxico e semântico.
-    4. Reranker clínico leve por cobertura de entidades e grau de evidência GRADE.
+    4. Reranker opcional por sobreposição de termos e grau de evidência GRADE. Desligado
+       por padrão desde a issue #35: na escala original ele decidia o ranking sozinho,
+       porque valia cerca de 10 vezes a fusão RRF.
     """
 
     def __init__(
@@ -129,7 +137,9 @@ class HybridRetriever:
         weight_bm25: float = WEIGHT_BM25,
         weight_vector: float = WEIGHT_VECTOR,
         use_vector_store: bool = True,
-        vector_mode: str = "chromadb_dense",
+        vector_mode: str = MODO_DENSO,
+        peso_sobreposicao: float = RERANK_PESO_SOBREPOSICAO,
+        bonus_evidencia: bool = RERANK_BONUS_EVIDENCIA,
     ) -> None:
         if not chunks:
             raise ValueError("A lista de chunks para o HybridRetriever não pode estar vazia.")
@@ -142,6 +152,8 @@ class HybridRetriever:
         self.weight_vector = weight_vector
         self.use_vector_store = use_vector_store
         self.vector_mode = vector_mode
+        self.peso_sobreposicao = peso_sobreposicao
+        self.bonus_evidencia = bonus_evidencia
 
         # 1. Construção do índice BM25
         self.tokenized_corpus = [
@@ -149,29 +161,9 @@ class HybridRetriever:
         ]
         self.bm25 = BM25Okapi(self.tokenized_corpus)
 
-        # 2. Construção do índice Vetorial Auxiliar (TF-IDF + SVD/LSA)
-        normalized_docs = [
-            expand_clinical_synonyms(chunk.contextualized_text) for chunk in self.chunks
-        ]
-        self.tfidf = TfidfVectorizer(
-            ngram_range=(1, 2),
-            sublinear_tf=True,
-            min_df=1,
-        )
-        tfidf_matrix = self.tfidf.fit_transform(normalized_docs)
-
-        n_components = min(32, tfidf_matrix.shape[0] - 1, tfidf_matrix.shape[1] - 1)
-        if n_components >= 2:
-            self.svd: Optional[TruncatedSVD] = TruncatedSVD(
-                n_components=n_components, random_state=42
-            )
-            dense_vecs = self.svd.fit_transform(tfidf_matrix)
-            self.doc_vectors = normalize(dense_vecs)
-            self.tfidf_matrix_norm = normalize(tfidf_matrix)
-        else:
-            self.svd = None
-            self.doc_vectors = normalize(tfidf_matrix.toarray())
-            self.tfidf_matrix_norm = normalize(tfidf_matrix)
+        # 2. Índice local TF-IDF + SVD/LSA: construído sob demanda (`_garantir_indice_lsa`).
+        self.tfidf: Optional[TfidfVectorizer] = None
+        self.svd: Optional[TruncatedSVD] = None
 
         # 3. Banco Vetorial Persistente (ChromaDB + Embeddings Multilíngues 384d)
         self.vector_store = None
@@ -183,6 +175,26 @@ class HybridRetriever:
                 chunks=self.chunks,
                 use_persistent=is_full_corpus,
             )
+
+    def _garantir_indice_lsa(self) -> None:
+        """Constrói o índice TF-IDF + SVD/LSA na primeira vez que ele for necessário."""
+        if self.tfidf is not None:
+            return
+        normalized_docs = [
+            expand_clinical_synonyms(chunk.contextualized_text) for chunk in self.chunks
+        ]
+        tfidf = TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True, min_df=1)
+        tfidf_matrix = tfidf.fit_transform(normalized_docs)
+
+        n_components = min(32, tfidf_matrix.shape[0] - 1, tfidf_matrix.shape[1] - 1)
+        if n_components >= 2:
+            self.svd = TruncatedSVD(n_components=n_components, random_state=42)
+            self.doc_vectors = normalize(self.svd.fit_transform(tfidf_matrix))
+        else:
+            self.svd = None
+            self.doc_vectors = normalize(tfidf_matrix.toarray())
+        self.tfidf_matrix_norm = normalize(tfidf_matrix)
+        self.tfidf = tfidf
 
     def _search_bm25(self, query: str) -> List[Tuple[int, float]]:
         query_tokens = tokenize_biomedical(query)
@@ -196,6 +208,7 @@ class HybridRetriever:
         if self.vector_store is not None and self.vector_mode == "chromadb_pure":
             return self.vector_store.similarity_search(query, top_k=self.top_k_vector)
 
+        self._garantir_indice_lsa()
         expanded_query = expand_clinical_synonyms(query)
         q_tfidf = self.tfidf.transform([expanded_query])
         q_tfidf_norm = normalize(q_tfidf)
@@ -236,8 +249,8 @@ class HybridRetriever:
         q_set = set(query_tokens)
         c_set = set(chunk_tokens)
         overlap_ratio = len(q_set.intersection(c_set)) / max(len(q_set), 1)
-        grade_bonus = EVIDENCE_GRADE_BONUS.get(chunk.evidence_level, 0.0)
-        return float(rrf_score + (0.25 * overlap_ratio) + grade_bonus)
+        grade_bonus = EVIDENCE_GRADE_BONUS.get(chunk.evidence_level, 0.0) if self.bonus_evidencia else 0.0
+        return float(rrf_score + (self.peso_sobreposicao * overlap_ratio) + grade_bonus)
 
     def retrieve(
         self,

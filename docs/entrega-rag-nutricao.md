@@ -57,7 +57,7 @@ A página e a seção nunca são misturadas entre Trechos. É isso que permite c
 
 - **Modelo:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, multilíngue, **384 dimensões**, vetores normalizados (L2) e similaridade por cosseno.
 - **Execução local** (biblioteca `fastembed`, ONNX): nenhum texto sai da máquina, o que atende ao RNF05.
-- **Busca híbrida** (`src/retrieval/hybrid_retriever.py`): BM25 léxico com sinônimos clínicos, mais a similaridade densa do ChromaDB combinada com TF-IDF/LSA, fundidos por **Reciprocal Rank Fusion**, seguidos de reranker (sobreposição de termos e nível de evidência) e de diversificação (no máximo 2 Trechos por documento).
+- **Busca híbrida** (`src/retrieval/hybrid_retriever.py`): BM25 léxico com sinônimos clínicos e similaridade densa do ChromaDB, fundidos por **Reciprocal Rank Fusion**, seguidos de diversificação (no máximo 2 Trechos por documento). Desde a issue #35, o reranker por sobreposição de termos e nível de evidência e a mistura com TF-IDF/LSA ficam desligados por padrão (`MODO_DENSO`, `RERANK_*` em `src/config.py`); ver `eval/runs/ablacao_mrr_issue35.md`.
 - **Ainda não feito:** comparar pelo menos dois modelos em português no golden set (issue #15).
 
 ### 1.4 Banco vetorial
@@ -92,7 +92,7 @@ flowchart LR
 ```mermaid
 flowchart TD
     Q["Consulta do usuário"] --> GE["Guardrail de entrada<br/>(Lei 8.234/1991: dieta, dose e diagnóstico<br/>são reenquadrados para evidência populacional)"]
-    GE --> HR["Recuperação híbrida<br/>BM25 + ChromaDB/LSA + RRF<br/>+ reranker + diversificação"]
+    GE --> HR["Recuperação híbrida<br/>BM25 + ChromaDB + RRF<br/>+ diversificação"]
     DB[("ChromaDB")] --> HR
     B[("BM25")] --> HR
     HR --> K["Top-4 Trechos<br/>com fonte, página, link e status"]
@@ -123,24 +123,24 @@ Os artefatos foram gerados **sem LLM** (síntese extrativa local e determinísti
 
 ### 3.1 Avaliação (benchmark offline)
 
-`run_benchmark.py` sobre as 16 perguntas de `data/benchmark/eval_questions.json`, sem LLM e só com as fontes aprovadas (medido de novo em 08/11/2026, depois da aprovação):
+`run_benchmark.py` sobre as 16 perguntas de `data/benchmark/eval_questions.json`, sem LLM e só com as fontes aprovadas (medido de novo em 10/11/2026, depois da mudança de ranking da #35; entre parênteses, o valor de 08/11/2026):
 
 | Métrica | Valor |
 |---|---|
 | Recall@4 por fonte | 91.7% (em 12 das 16 perguntas) |
-| MRR | 0.750 |
-| Cobertura de termos esperados | 88.1% |
+| MRR | 0.778 (0.750) |
+| Cobertura de termos esperados | 92.5% (88.1%) |
 | Acurácia do guardrail legal | 100% |
 
 - As perguntas foram escritas para o `data/raw`. Os ids esperados foram mapeados para as fontes do corpus (Guia por capítulo vira o Guia inteiro). As 4 perguntas que dependiam só do `seed_guidelines` ou do PubMed ficaram fora da média de recall, e o relatório as lista.
 - O recall agora é por fonte e não por capítulo, então os números **não são comparáveis** aos da versão anterior (93,8% com 47 fontes).
 - Tirar a SBAN do índice não mudou as métricas: ela aparecia em três perguntas (Q08, Q13 e Q16), mas em nenhuma era a fonte esperada, e as fontes que entraram no lugar também não eram.
-- O MRR de 0,750 é o baseline do CI (`eval/baselines/benchmark_offline.json`). A queda em relação à versão anterior vem do reranker, que às vezes põe a fonte esperada em 2º lugar; a melhoria está na issue #13.
+- O MRR de 0,778 é o baseline do CI (`eval/baselines/benchmark_offline.json`). A ablação da #35 mostrou que o reranker por sobreposição de termos pesava cerca de 10 vezes a fusão RRF e decidia o ranking sozinho; com RRF puro sobre BM25 + ChromaDB, o MRR subiu de 0,750 para 0,778 (2 perguntas melhoram, 1 piora). No benchmark v2, o MRR por Trecho foi de 0,740 para 0,814. Os ganhos foram medidos em conjuntos pequenos e são hipótese a confirmar.
 - O conjunto é pequeno e tem só 3 armadilhas de prescrição. O benchmark v2 é a issue #13.
 
 ## 4. Limitações conhecidas
 
-- **Reranker e idioma:** o bônus por sobreposição de termos favorece Trechos em português. Isso foi um dos motivos para deixar o PubMed (em inglês) fora desta entrega. A calibração é a issue #13.
+- **Reranker e idioma:** o bônus por sobreposição de termos favorecia Trechos em português e foi um dos motivos para deixar o PubMed (em inglês) fora desta entrega. Ele foi desligado na #35; a reavaliação do PubMed segue na #28.
 - **Aprovação das fontes:** 21 de 22 aprovadas (PR #31), por revisão com amostra de páginas e conferência numérica das tabelas, feita com apoio de IA. A SBAN segue pendente por possível conflito de interesse (material com marca da Nestlé). SVB e CFN foram aprovados com ressalva (`data_quality_note`).
 - **Código de Ética do CFN:** a versão de 2018 provavelmente foi revogada pela Resolução CFN 856/2026, ainda sem texto oficial localizado.
 - **Extração:** há defeitos conhecidos (versaletes do Guia, uma página do Crispim) nas issues #26 e #27.

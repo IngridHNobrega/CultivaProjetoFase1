@@ -1,0 +1,1540 @@
+{
+  "criterios": "eval/runs/ablacao_mrr_issue35_criterios.md",
+  "golden_set": {
+    "v1": "data/benchmark/eval_questions.json",
+    "v2": "eval/golden/v2/{dev,test}.json"
+  },
+  "observacao": "v1: medido dentro da amostra (o holdout antigo é idêntico ao dev). v2: escolher pelo dev e confirmar no test.",
+  "variantes": [
+    {
+      "id": "A0",
+      "descricao": "Configuração anterior à #35",
+      "hipotese": "referência",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.75,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8333,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.6,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 0.5,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 1.0
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.8889,
+            "acerto_completo_at_k": 0.6111,
+            "mrr_trecho": 0.662,
+            "ndcg_trecho_at_k": 0.418,
+            "cobertura_termos": 0.7353,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 0.9167,
+            "ndcg_trecho_at_k": 0.5191,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.25,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 1.0,
+          "V2-REC-19": 0.3333333333333333,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A1",
+      "descricao": "Sem bônus de evidência",
+      "hipotese": "H1",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": false
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.75,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8333,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.6,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 0.5,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 1.0
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "martins-ultraprocessados-rsp-2013",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-micronutrientes-rsp-2015"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.9444,
+            "acerto_completo_at_k": 0.6667,
+            "mrr_trecho": 0.6759,
+            "ndcg_trecho_at_k": 0.4455,
+            "cobertura_termos": 0.7647,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 1.0,
+            "ndcg_trecho_at_k": 0.5403,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.25,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.25,
+          "V2-REC-16": 1.0,
+          "V2-REC-17": 0.5,
+          "V2-REC-19": 0.3333333333333333,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 1.0,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A2",
+      "descricao": "Sem sobreposição de termos",
+      "hipotese": "H1",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.0,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.7778,
+        "mean_keyword_coverage": 0.925,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8194,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 1.0,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.5667,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 1.0,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 1.0,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 0.3333
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.9444,
+            "acerto_completo_at_k": 0.6111,
+            "mrr_trecho": 0.7222,
+            "ndcg_trecho_at_k": 0.4396,
+            "cobertura_termos": 0.7353,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.875,
+            "mrr_trecho": 0.8542,
+            "ndcg_trecho_at_k": 0.5042,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.3333333333333333,
+          "V2-REC-07": 0.5,
+          "V2-REC-08": 0.3333333333333333,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 1.0,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 1.0,
+          "V2-REC-19": 0.5,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 1.0,
+          "V2-ADV-04": 0.3333333333333333,
+          "V2-GRA-01": 1.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 0.5,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A3",
+      "descricao": "RRF puro (sem bônus e sem sobreposição)",
+      "hipotese": "H1",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.0,
+        "bonus_evidencia": false
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.7778,
+        "mean_keyword_coverage": 0.925,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8194,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 1.0,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.5667,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 1.0,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 1.0,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 0.3333
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-micronutrientes-rsp-2015"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.6667,
+            "mrr_trecho": 0.7269,
+            "ndcg_trecho_at_k": 0.4639,
+            "cobertura_termos": 0.7353,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 0.9375,
+            "ndcg_trecho_at_k": 0.4912,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.3333333333333333,
+          "V2-REC-07": 0.5,
+          "V2-REC-08": 0.3333333333333333,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 1.0,
+          "V2-REC-14": 0.25,
+          "V2-REC-16": 1.0,
+          "V2-REC-17": 0.3333333333333333,
+          "V2-REC-19": 0.5,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 1.0,
+          "V2-ADV-04": 0.3333333333333333,
+          "V2-GRA-01": 1.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 1.0,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 0.5,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A4",
+      "descricao": "RRF com pesos iguais (0,5/0,5)",
+      "hipotese": "pesos do RRF",
+      "parametros": {
+        "peso_bm25": 0.5,
+        "peso_denso": 0.5,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.75,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8333,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.6,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 0.5,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 1.0
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.8889,
+            "acerto_completo_at_k": 0.6111,
+            "mrr_trecho": 0.662,
+            "ndcg_trecho_at_k": 0.4134,
+            "cobertura_termos": 0.7353,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 0.8542,
+            "ndcg_trecho_at_k": 0.4988,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.25,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 1.0,
+          "V2-REC-19": 0.3333333333333333,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 0.5,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A5",
+      "descricao": "Só BM25 (peso denso 0)",
+      "hipotese": "pesos do RRF",
+      "parametros": {
+        "peso_bm25": 1.0,
+        "peso_denso": 0.0,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.75,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8333,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.6,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 0.5,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 1.0
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.8889,
+            "acerto_completo_at_k": 0.6667,
+            "mrr_trecho": 0.6481,
+            "ndcg_trecho_at_k": 0.3966,
+            "cobertura_termos": 0.7059,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.625,
+            "mrr_trecho": 0.8542,
+            "ndcg_trecho_at_k": 0.4711,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 0.5,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.5,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 1.0,
+          "V2-REC-19": 0.3333333333333333,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 0.5,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A6",
+      "descricao": "Só busca densa (peso BM25 0)",
+      "hipotese": "pesos do RRF",
+      "parametros": {
+        "peso_bm25": 0.0,
+        "peso_denso": 1.0,
+        "modo_denso": "chromadb_dense",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.7917,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.875,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.7,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 1.0,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 1.0,
+        "Q15_NATURAL_GRAPH": 0.5
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.8889,
+            "acerto_completo_at_k": 0.7222,
+            "mrr_trecho": 0.6065,
+            "ndcg_trecho_at_k": 0.4196,
+            "cobertura_termos": 0.7941,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.625,
+            "mrr_trecho": 0.6354,
+            "ndcg_trecho_at_k": 0.4169,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 0.5,
+          "V2-REC-05": 0.25,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 0.5,
+          "V2-REC-19": 0.3333333333333333,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 0.5,
+          "V2-REC-06": 0.5,
+          "V2-REC-09": 0.25,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 0.5,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A7",
+      "descricao": "Densa só com ChromaDB (sem TF-IDF/LSA)",
+      "hipotese": "H3",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_pure",
+        "peso_sobreposicao": 0.25,
+        "bonus_evidencia": true
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.75,
+        "mean_keyword_coverage": 0.8812,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8333,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 0.9167,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.6,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 0.5,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 0.5,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 1.0
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-micronutrientes-rsp-2015",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q03_DIRECT": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "souza-backes-universitarios-csc-2020"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.8889,
+            "acerto_completo_at_k": 0.5556,
+            "mrr_trecho": 0.6852,
+            "ndcg_trecho_at_k": 0.3885,
+            "cobertura_termos": 0.7647,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 0.9167,
+            "ndcg_trecho_at_k": 0.5028,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.5,
+          "V2-REC-07": 0.3333333333333333,
+          "V2-REC-08": 1.0,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 0.5,
+          "V2-REC-14": 0.0,
+          "V2-REC-16": 0.5,
+          "V2-REC-17": 1.0,
+          "V2-REC-19": 0.5,
+          "V2-REC-20": 0.5,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 0.5,
+          "V2-ADV-04": 1.0,
+          "V2-GRA-01": 0.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 0.3333333333333333,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    },
+    {
+      "id": "A8",
+      "descricao": "Densa só com ChromaDB e RRF puro",
+      "hipotese": "H1 + H3",
+      "parametros": {
+        "peso_bm25": 0.55,
+        "peso_denso": 0.45,
+        "modo_denso": "chromadb_pure",
+        "peso_sobreposicao": 0.0,
+        "bonus_evidencia": false
+      },
+      "geral": {
+        "mean_doc_recall_at_k": 0.9167,
+        "mean_reciprocal_rank_mrr": 0.7778,
+        "mean_keyword_coverage": 0.925,
+        "legal_guardrail_accuracy": 1.0
+      },
+      "mrr_fasciculo_equivalente": 0.8194,
+      "por_categoria": {
+        "direct_guideline": {
+          "mrr": 1.0,
+          "recall_at_k": 1.0
+        },
+        "multi_hop_and_composition_gap": {
+          "mrr": 0.5667,
+          "recall_at_k": 0.8
+        },
+        "legal_guardrail_trap": {
+          "mrr": 0.5,
+          "recall_at_k": 1.0
+        }
+      },
+      "rr_por_pergunta": {
+        "Q01_DIRECT": 1.0,
+        "Q02_DIRECT": 1.0,
+        "Q03_DIRECT": 1.0,
+        "Q04_DIRECT": 1.0,
+        "Q05_DIRECT": 1.0,
+        "Q06_MULTIHOP_GAP": 1.0,
+        "Q07_MULTIHOP_GAP": 1.0,
+        "Q08_MULTIHOP_GAP": 0.0,
+        "Q09_LEGAL_TRAP": 0.5,
+        "Q12_DIRECT": 1.0,
+        "Q14_NATURAL_GRAPH": 0.5,
+        "Q15_NATURAL_GRAPH": 0.3333
+      },
+      "top4_por_pergunta": {
+        "Q01_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q02_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-micronutrientes-rsp-2015",
+          "martins-ultraprocessados-rsp-2013"
+        ],
+        "Q03_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
+        ],
+        "Q04_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q05_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "protocolos-guia-alimentar-fasciculo1-2021"
+        ],
+        "Q06_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014"
+        ],
+        "Q07_MULTIHOP_GAP": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q08_MULTIHOP_GAP": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012",
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q09_LEGAL_TRAP": [
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "louzada-ultraprocessados-micronutrientes-rsp-2015"
+        ],
+        "Q12_DIRECT": [
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "protocolos-guia-alimentar-fasciculo1-2021",
+          "souza-backes-universitarios-csc-2020"
+        ],
+        "Q14_NATURAL_GRAPH": [
+          "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-dietas-vegetarianas-svb-2012"
+        ],
+        "Q15_NATURAL_GRAPH": [
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-dietas-vegetarianas-svb-2012",
+          "guia-alimentar-populacao-brasileira-2014",
+          "guia-alimentar-populacao-brasileira-2014"
+        ]
+      },
+      "v2": {
+        "por_split": {
+          "dev": {
+            "acerto_trecho_at_k": 0.9444,
+            "acerto_completo_at_k": 0.6667,
+            "mrr_trecho": 0.7315,
+            "ndcg_trecho_at_k": 0.4574,
+            "cobertura_termos": 0.7059,
+            "guardrail_acuracia": 0.8519
+          },
+          "test": {
+            "acerto_trecho_at_k": 1.0,
+            "acerto_completo_at_k": 0.75,
+            "mrr_trecho": 1.0,
+            "ndcg_trecho_at_k": 0.4786,
+            "cobertura_termos": 0.875,
+            "guardrail_acuracia": 1.0
+          }
+        },
+        "nao_julgados": {},
+        "rr_por_caso": {
+          "V2-REC-01": 1.0,
+          "V2-REC-02": 1.0,
+          "V2-REC-04": 1.0,
+          "V2-REC-05": 0.5,
+          "V2-REC-07": 0.5,
+          "V2-REC-08": 0.25,
+          "V2-REC-10": 1.0,
+          "V2-REC-11": 1.0,
+          "V2-REC-13": 1.0,
+          "V2-REC-14": 0.25,
+          "V2-REC-16": 1.0,
+          "V2-REC-17": 0.3333333333333333,
+          "V2-REC-19": 1.0,
+          "V2-REC-20": 0.0,
+          "V2-REC-22": 1.0,
+          "V2-REC-23": 1.0,
+          "V2-ADV-04": 0.3333333333333333,
+          "V2-GRA-01": 1.0,
+          "V2-REC-03": 1.0,
+          "V2-REC-06": 1.0,
+          "V2-REC-09": 1.0,
+          "V2-REC-12": 1.0,
+          "V2-REC-15": 1.0,
+          "V2-REC-18": 1.0,
+          "V2-REC-21": 1.0,
+          "V2-ADV-03": 1.0
+        }
+      }
+    }
+  ]
+}

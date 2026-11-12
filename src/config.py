@@ -12,6 +12,9 @@ TACO_RAW_PATH = DATA_DIR / "raw" / "taco" / "taco_raw.json"
 KNOWLEDGE_GRAPH_PATH = DATA_DIR / "raw" / "knowledge_graph" / "nutrition_4layer_graph.json"
 BENCHMARK_QUESTIONS_PATH = DATA_DIR / "benchmark" / "eval_questions.json"
 BENCHMARK_REPORT_PATH = DATA_DIR / "benchmark" / "baseline_report.json"
+# Benchmark v2 (issue #13): golden set com Trecho e página esperados, dev e test separados.
+GOLDEN_V2_DIR = PROJECT_ROOT / "eval" / "golden" / "v2"
+BENCHMARK_V2_REPORT_PATH = DATA_DIR / "benchmark" / "benchmark_v2_report.json"
 
 # Caminhos do Corpus Curado (Catálogo Oficial manifest.yaml e JSONLs de RAG)
 CORPUS_MANIFEST_PATH = PROJECT_ROOT / "corpus" / "manifest.yaml"
@@ -75,3 +78,12 @@ WEIGHT_BM25 = float(os.getenv("WEIGHT_BM25", "0.55"))
 WEIGHT_VECTOR = float(os.getenv("WEIGHT_VECTOR", "0.45"))
 TOP_K_FINAL = int(os.getenv("TOP_K_FINAL", "4"))
 MAX_CHUNKS_PER_DOC = int(os.getenv("MAX_CHUNKS_PER_DOC", "2"))
+
+# Ranking (issue #35). A ablação mostrou que a sobreposição de termos (0,25) e o bônus de
+# evidência pesavam cerca de 10 vezes a fusão RRF e decidiam o ranking sozinhos; a mistura
+# densa com TF-IDF/LSA também não ajudava. Padrão: RRF puro sobre BM25 + ChromaDB.
+# Detalhes e números: eval/runs/ablacao_mrr_issue35.md.
+# MODO_DENSO: "chromadb_pure" (só ChromaDB), "chromadb_dense" (ChromaDB + TF-IDF/LSA) ou "legacy_lsa".
+MODO_DENSO = os.getenv("MODO_DENSO", "chromadb_pure")
+RERANK_PESO_SOBREPOSICAO = float(os.getenv("RERANK_PESO_SOBREPOSICAO", "0.0"))
+RERANK_BONUS_EVIDENCIA = os.getenv("RERANK_BONUS_EVIDENCIA", "false").strip().lower() in {"1", "true", "sim"}

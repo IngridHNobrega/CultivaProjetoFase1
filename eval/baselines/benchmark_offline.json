@@ -4,8 +4,8 @@
   "top_k": 4,
   "overall_metrics": {
     "mean_doc_recall_at_k": 0.9167,
-    "mean_reciprocal_rank_mrr": 0.75,
-    "mean_keyword_coverage": 0.8812,
+    "mean_reciprocal_rank_mrr": 0.7778,
+    "mean_keyword_coverage": 0.925,
     "legal_guardrail_accuracy": 1.0
   }
 }

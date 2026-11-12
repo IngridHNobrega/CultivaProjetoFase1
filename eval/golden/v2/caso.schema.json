@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Cultiva-Challenge-2-Residencia-IA/CultivaProjetoFase1/eval/golden/v2/caso.schema.json",
+  "title": "Golden set v2 do benchmark de Nutrição",
+  "description": "Arquivo dev.json ou test.json. Cada caso declara o comportamento esperado e, conforme o tipo, os Trechos esperados, as checagens da resposta, a cadeia do grafo ou o valor da TACO.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["versao", "split", "casos"],
+  "properties": {
+    "versao": {"const": 2},
+    "split": {"enum": ["dev", "test"]},
+    "casos": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/caso"}}
+  },
+  "$defs": {
+    "termos": {
+      "description": "Lista de grupos; cada grupo é atendido se qualquer um dos termos (normalizados, sem acento) aparecer no texto.",
+      "type": "array",
+      "items": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+    },
+    "caso": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "tipo", "split", "pergunta", "comportamento_esperado", "recuperacao", "geracao", "grafo", "taco", "nota", "autoria"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^V2-(REC|PRE|ADV|FOR|GRA|TAC)-[0-9]{2}$"},
+        "tipo": {"enum": ["recuperacao", "prescricao", "adversarial", "fora_de_escopo", "grafo", "taco"]},
+        "split": {"enum": ["dev", "test"]},
+        "pergunta": {"type": "string", "minLength": 1},
+        "comportamento_esperado": {
+          "description": "responder: responde com fonte; redirecionar_prescricao: guardrail da Lei 8.234/1991 aciona; nao_sei: abstém-se (RF-IA01, issue #6).",
+          "enum": ["responder", "redirecionar_prescricao", "nao_sei"]
+        },
+        "recuperacao": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["evidencias", "julgados_irrelevantes", "pool"],
+          "properties": {
+            "evidencias": {
+              "description": "Trechos relevantes (id do JSONL), com a nota (2: responde; 1: responde em parte) e uma citação literal conferida nos testes.",
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["nota", "citacao"],
+                "properties": {
+                  "nota": {"enum": [1, 2]},
+                  "citacao": {"type": "string", "minLength": 10}
+                }
+              }
+            },
+            "julgados_irrelevantes": {
+              "description": "Trechos do pool julgados com nota 0. Trecho recuperado fora das duas listas é 'não julgado' e precisa entrar num novo julgamento.",
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "pool": {"type": "string", "description": "Como o pool julgado foi montado, com a data."}
+          }
+        },
+        "geracao": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "termos_obrigatorios": {"$ref": "#/$defs/termos"},
+            "termos_proibidos": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "grafo": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "cadeia_esperada": {"$ref": "#/$defs/termos", "description": "Grupos que precisam aparecer juntos numa mesma cadeia devolvida (alimento, composto, mecanismo e desfecho concatenados)."},
+            "composto_proibido": {"$ref": "#/$defs/termos", "description": "Nenhuma cadeia não marcada como contraindicada pode ter um composto com todos estes grupos."}
+          }
+        },
+        "taco": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["alimento", "campo", "valor", "tolerancia"],
+          "properties": {
+            "alimento": {"type": "string", "description": "Descrição exata do alimento na TACO."},
+            "campo": {"type": "string"},
+            "valor": {"type": "number"},
+            "tolerancia": {"type": "number", "minimum": 0}
+          }
+        },
+        "nota": {"type": ["string", "null"]},
+        "autoria": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["autor", "revisao", "revisor"],
+          "properties": {
+            "autor": {"type": "string"},
+            "revisao": {"enum": ["pendente", "revisado"]},
+            "revisor": {"type": ["string", "null"]}
+          }
+        }
+      }
+    }
+  }
+}

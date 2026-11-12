@@ -48,20 +48,20 @@ DEMONSTRAÇÃO #1 — FLUXO COMPLETO DE RECUPERAÇÃO, FUNDAMENTAÇÃO E RASTREA
 [ETAPA B — RECUPERAÇÃO DOS CHUNKS MAIS RELEVANTES (BANCO VETORIAL CHROMADB + BM25 + RRF)]
   Chunk #1: [abeso-posicionamento-tratamento-nutricional-obesidade-2022-p175-05] (Fonte: abeso-posicionamento-tratamento-nutricional-obesidade-2022 | Pág. PDF: 175 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : Psyllium ( Plantago ovata ), goma-guar e glucomannan (pág. 175)
-    ├─ Scores de Busca     : Rerank=0.2011 | RRF=0.0161 | Vetorial(ChromaDB)=0.4141 (rank=1) | BM25=112.5492 (rank=3)
+    ├─ Scores de Busca     : Rerank=0.0157 | RRF=0.0157 | Vetorial(ChromaDB)=0.5095 (rank=5) | BM25=112.5492 (rank=3)
     └─ Conteúdo Recuperado : "Psyllium é uma fibra solúvel em água, derivada da casca de sementes maduras de Plantago ovat a . Em ensaio clínico randomizado duplo-cego com 200 pacientes com sobrepeso ou obesidade submetidos à dieta hipocalórica por 16 semanas, foi suplementada dose mista d..."
-  Chunk #2: [abeso-posicionamento-tratamento-nutricional-obesidade-2022-p176-01] (Fonte: abeso-posicionamento-tratamento-nutricional-obesidade-2022 | Pág. PDF: 176 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
-    ├─ Seção / Localização : Psyllium ( Plantago ovata ), goma-guar e glucomannan (pág. 176)
-    ├─ Scores de Busca     : Rerank=0.2006 | RRF=0.0156 | Vetorial(ChromaDB)=0.3853 (rank=2) | BM25=107.0726 (rank=6)
-    └─ Conteúdo Recuperado : "O efeito da goma guar, fibra solúvel derivada do feijão indiano ( Cyamopsis tetragonolobus ), foi avaliado em metanálise de vinte ensaios clínicos randomizados duplo-cego controlados e o resultado mostrou ausência de benefício na redução do peso corporal, além..."
+  Chunk #2: [guia-alimentar-populacao-brasileira-2014-p069-01] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 69 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
+    ├─ Seção / Localização : GrUPo dos Cereais (pág. 69)
+    ├─ Scores de Busca     : Rerank=0.0090 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=137.5379 (rank=1)
+    └─ Conteúdo Recuperado : "Polenta de milho com molho de tomate  Macarrão com molho de tomate e ervas frescas  este grupo abrange arroz, milho (incluindo grãos e farinha) e trigo (incluindo grãos, farinha, macarrão e pães), além de outros cereais, como a aveia e o centeio."
   Chunk #3: [guia-dietas-vegetarianas-svb-2012-p055-03] (Fonte: guia-dietas-vegetarianas-svb-2012 | Pág. PDF: 55 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : DERIVADOS DOS INTEGRAIS (pág. 55)
-    ├─ Scores de Busca     : Rerank=0.1843 | RRF=0.0089 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=129.7027 (rank=2)
+    ├─ Scores de Busca     : Rerank=0.0089 | RRF=0.0089 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=129.7027 (rank=2)
     └─ Conteúdo Recuperado : "Aveia em flocos crua; flocos de milho sem sal; flocos de milho; flocos de milho açucarados; creme de milho em pó; curau de milho verde em pó; farinha de centeio integral; farinha de milho amarela; fubá de milho cru; pão de aveia, forma; pão de soja; pão de mil..."
-  Chunk #4: [guia-alimentar-populacao-brasileira-2014-p069-01] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 69 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
-    ├─ Seção / Localização : GrUPo dos Cereais (pág. 69)
-    ├─ Scores de Busca     : Rerank=0.1748 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=137.5379 (rank=1)
-    └─ Conteúdo Recuperado : "Polenta de milho com molho de tomate  Macarrão com molho de tomate e ervas frescas  este grupo abrange arroz, milho (incluindo grãos e farinha) e trigo (incluindo grãos, farinha, macarrão e pães), além de outros cereais, como a aveia e o centeio."
+  Chunk #4: [guia-dietas-vegetarianas-svb-2012-p034-01] (Fonte: guia-dietas-vegetarianas-svb-2012 | Pág. PDF: 34 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
+    ├─ Seção / Localização : 5.2.2 Zinco (pág. 34)
+    ├─ Scores de Busca     : Rerank=0.0086 | RRF=0.0086 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=109.9545 (rank=4)
+    └─ Conteúdo Recuperado : "A Tabela 20 mostra algumas fontes de zinco na dieta vegetariana:  Tabela 20: Teor de zinco de alimentos vegetais  Alimento | Teor de zinco em mg (em 100 g do alimento)  Cereal matinal de milho | 7,6  Soja (extrato solúvel em pó) | 5,8  Coentro (folhas desidrat..."
 
 [ETAPA C — RESPOSTA FUNDAMENTADA NO CONTEÚDO RECUPERADO]
   • Motor de Síntese : local_extractive_synthesis | Modo: HYBRID_RAG_PLUS_GRAPH_AND_TACO | Evidência: GUIDELINE_CONSENSUS
@@ -76,9 +76,7 @@ CAMINHOS DO GRAFO CAUSAL DE 4 CAMADAS (NetworkX: Alimento ➔ Composto ➔ Mecan
 - ✅ [GRADE_A | CAUSAL_ECR_META_ANALYSIS] [1. Alimento: Azeite de Oliva Extravirgem, Aveia, Arroz/Amido Resfriado e Temperos Naturais (Sem Sal)] ➔ [2. Composto: Ácidos Graxos Monoinsaturados (Ácido Oleico), Fibras Viscosas e Redução de Sódio (< 2g/dia) (Azeite de oliva: ~73g MUFA/100g e 0 mg de potássio (TACO))] ➔ [3. Mecanismo: Melhora da fluidez de membrana e sinalização do receptor de insulina (reduzindo HOMA-IR) + redução da resistência vascular periférica pela restrição de sódio e inflamação endotelial, SEM aportar carga de potássio sérico] ➔ [4. Desfecho (DECREASES): Pressão Arterial e Resistência à Insulina (HOMA-IR) com Segurança na Doença Renal Crônica] | Protocolo: Estratégia segura para trade-off de hipertensão + resistência à insulina + restrição de potássio (DRC): redução de sódio/ultraprocessados + uso de azeite de oliva (0mg K), fibras solúveis purificadas e amido resistente
 - ✅ [GRADE_A | CAUSAL_ECR_META_ANALYSIS] [1. Alimento: Óleos Vegetais, Castanhas, Amêndoas, Sementes e Grãos Integrais] ➔ [2. Composto: Fitoesteróis Vegetais (Beta-sitosterol, Campesterol e Estigmasterol) (Óleos vegetais, gergelim e castanhas: 150 a 400 mg de fitoesteróis/100g (FooDB))] ➔ [3. Mecanismo: Competição estrutural com o colesterol dietético e biliar pela incorporação nas micelas mistas no lúmen intestinal (transportador NPC1L1), reduzindo a absorção enterocítica de colesterol] ➔ [4. Desfecho (DECREASES): Colesterol LDL-c Plasmático] | Protocolo: Protocolos clínicos de 1,5g a 2,0g/dia de fitoesteróis promovem redução média de 8% a 12% no LDL-c | Contraindicações/Cautelas: Sitosterolemia familiar (condição genética rara)
   • Achados Clínicos :
-    Em ensaio clínico randomizado duplo-cego com 200 pacientes com sobrepeso ou obesidade submetidos à dieta hipocalórica por 16 semanas, foi suplementada dose mista de fibra (3g Plantago ovata e 1g de glucomannan) duas ou três vezes ao dia. O efeito da goma guar, fibra solúvel derivada do feijão indiano ( Cyamopsis tetragonolobus ), foi avaliado em metanálise de vinte ensaios clínicos randomizados duplo-cego controlados e o resultado mostrou ausência de benefício na redução do peso corporal, além de apresentarem substanciais eventos adversos relacionados predominantemente ao sistema gastrointestinal .
-
-O glucomannan é um componente da raiz da konjac (derivado de Amorphophallus konjac C.
+    Em ensaio clínico randomizado duplo-cego com 200 pacientes com sobrepeso ou obesidade submetidos à dieta hipocalórica por 16 semanas, foi suplementada dose mista de fibra (3g Plantago ovata e 1g de glucomannan) duas ou três vezes ao dia.
 
 DADOS DETERMINÍSTICOS DA TABELA TACO (4ª Ed. Unicamp / TBCA-USP — Valores exatos por 100g de alimento):
 - Aveia, flocos, crua [Cereais e derivados]: Energia: 393.82 kcal | Proteína: 13.92 g | Fibra: 9.13 g | Fibra Alimentar (g): 9.13
@@ -89,9 +87,9 @@ DADOS DETERMINÍSTICOS DA TABELA TACO (4ª Ed. Unicamp / TBCA-USP — Valores ex
 
 [ETAPA D — EVIDÊNCIA RASTREÁVEL DAS FONTES UTILIZADAS NA RESPOSTA]
   [1] [abeso-posicionamento-tratamento-nutricional-obesidade-2022] Posicionamento sobre o tratamento nutricional do sobrepeso e da obesidade — Associação Brasileira para o Estudo da Obesidade e da Síndrome Metabólica (ABESO), Departamento de Nutrição (2022), Seção: 'Psyllium ( Plantago ovata ), goma-guar e glucomannan (pág. 175)' (Evidência: GUIDELINE_CONSENSUS | Licença: pendente | Aprovação: aprovado)
-  [2] [abeso-posicionamento-tratamento-nutricional-obesidade-2022] Posicionamento sobre o tratamento nutricional do sobrepeso e da obesidade — Associação Brasileira para o Estudo da Obesidade e da Síndrome Metabólica (ABESO), Departamento de Nutrição (2022), Seção: 'Psyllium ( Plantago ovata ), goma-guar e glucomannan (pág. 176)' (Evidência: GUIDELINE_CONSENSUS | Licença: pendente | Aprovação: aprovado)
+  [2] [guia-alimentar-populacao-brasileira-2014] Guia alimentar para a população brasileira — Ministério da Saúde (2014), Seção: 'GrUPo dos Cereais (pág. 69)' (Evidência: GUIDELINE_CONSENSUS | Link: https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-ter-peso-saudavel/documentos/pdf/guia_alimentar_populacao_brasileira_2ed.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
   [3] [guia-dietas-vegetarianas-svb-2012] Guia alimentar de dietas vegetarianas para adultos — Sociedade Vegetariana Brasileira (2012), Seção: 'DERIVADOS DOS INTEGRAIS (pág. 55)' (Evidência: GUIDELINE_CONSENSUS | Link: https://old.svb.org.br/livros/guia-alimentar.pdf | Licença: Permissão própria SVB: reprodução parcial ou total com citação da fonte, sem venda ou qualquer fim comercial. | Aprovação: aprovado)
-  [4] [guia-alimentar-populacao-brasileira-2014] Guia alimentar para a população brasileira — Ministério da Saúde (2014), Seção: 'GrUPo dos Cereais (pág. 69)' (Evidência: GUIDELINE_CONSENSUS | Link: https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-ter-peso-saudavel/documentos/pdf/guia_alimentar_populacao_brasileira_2ed.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
+  [4] [guia-dietas-vegetarianas-svb-2012] Guia alimentar de dietas vegetarianas para adultos — Sociedade Vegetariana Brasileira (2012), Seção: '5.2.2 Zinco (pág. 34)' (Evidência: GUIDELINE_CONSENSUS | Link: https://old.svb.org.br/livros/guia-alimentar.pdf | Licença: Permissão própria SVB: reprodução parcial ou total com citação da fonte, sem venda ou qualquer fim comercial. | Aprovação: aprovado)
   [5] [KG_4LAYER_PICO_GRADE] Grafo de Conhecimento de 4 Camadas (NetworkX: 4 cadeias causais Alimento ➔ Composto ➔ Mecanismo ➔ Desfecho)
   [6] [TACO_4ED_UNICAMP] Tabela Brasileira de Composição de Alimentos (TACO 4ª Edição - NEPA/Unicamp & TBCA-USP) — Consulta Determinística por 100g
 --------------------------------------------------------------------------------------------
@@ -107,19 +105,19 @@ DEMONSTRAÇÃO #2 — FLUXO COMPLETO DE RECUPERAÇÃO, FUNDAMENTAÇÃO E RASTREA
 [ETAPA B — RECUPERAÇÃO DOS CHUNKS MAIS RELEVANTES (BANCO VETORIAL CHROMADB + BM25 + RRF)]
   Chunk #1: [guia-alimentar-populacao-brasileira-2014-p036-03] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 36 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : Óleos, gordurAs, sAl e AçúcAr (pág. 36)
-    ├─ Scores de Busca     : Rerank=0.2790 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=52.5911 (rank=1)
+    ├─ Scores de Busca     : Rerank=0.0090 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=52.5911 (rank=1)
     └─ Conteúdo Recuperado : "Como se verá no próximo capítulo deste guia, alimentos in natura ou minimamente processados e preparações culinárias feitas com base nesses alimentos e no uso de óleos, gorduras, sal e açúcar propiciam aos brasileiros uma alimentação de qualidade nutricional b..."
   Chunk #2: [guia-alimentar-populacao-brasileira-2014-p127-01] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 127 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : Limitar o ConsUmo (pág. 127)
-    ├─ Scores de Busca     : Rerank=0.2758 | RRF=0.0158 | Vetorial(ChromaDB)=0.5613 (rank=5) | BM25=52.3042 (rank=2)
+    ├─ Scores de Busca     : Rerank=0.0089 | RRF=0.0089 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=52.3042 (rank=2)
     └─ Conteúdo Recuperado : "Limitar o ConsUmo de aLimentos ProCessados 3  os ingredientes e métodos usados na fabricação de alimentos processados – como conservas de legumes, compota de frutas, pães e queijos – alteram de modo desfavorável a composição nutricional dos alimentos dos quais..."
   Chunk #3: [louzada-ultraprocessados-perfil-nutricional-rsp-2015-p011-02] (Fonte: louzada-ultraprocessados-perfil-nutricional-rsp-2015 | Pág. PDF: 11 | Evidência: GRADE_C | Aprovação: aprovado)
     ├─ Seção / Localização : ANExO (pág. 11)
-    ├─ Scores de Busca     : Rerank=0.2087 | RRF=0.0087 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=50.6778 (rank=3)
+    ├─ Scores de Busca     : Rerank=0.0087 | RRF=0.0087 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=50.6778 (rank=3)
     └─ Conteúdo Recuperado : "As preparações culinárias baseadas nesses alimentos incluem o alimento in natura ou minimamente processado usado como item principal da receita e todos os demais ingredientes, incluindo ingredientes culinários como óleos, gorduras, açúcar e sal, outros aliment..."
   Chunk #4: [louzada-ultraprocessados-perfil-nutricional-rsp-2015-p004-07] (Fonte: louzada-ultraprocessados-perfil-nutricional-rsp-2015 | Pág. PDF: 4 | Evidência: GRADE_C | Aprovação: aprovado)
     ├─ Seção / Localização : RESULTADOS (pág. 4)
-    ├─ Scores de Busca     : Rerank=0.2086 | RRF=0.0086 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=50.4020 (rank=4)
+    ├─ Scores de Busca     : Rerank=0.0086 | RRF=0.0086 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=50.4020 (rank=4)
     └─ Conteúdo Recuperado : "A contribuição média dos alimentos ultraprocessados para o total de energia consumida variou de menos de 2,0% no primeiro quintil para quase 50,0% no último quintil. A contribuição de todas as categorias de alimentos ultraprocessados aumenta significativamente..."
 
 [ETAPA C — RESPOSTA FUNDAMENTADA NO CONTEÚDO RECUPERADO]
@@ -172,20 +170,20 @@ DEMONSTRAÇÃO #3 — FLUXO COMPLETO DE RECUPERAÇÃO, FUNDAMENTAÇÃO E RASTREA
 [ETAPA B — RECUPERAÇÃO DOS CHUNKS MAIS RELEVANTES (BANCO VETORIAL CHROMADB + BM25 + RRF)]
   Chunk #1: [protocolos-guia-alimentar-fasciculo1-2021-p021-02] (Fonte: protocolos-guia-alimentar-fasciculo1-2021 | Pág. PDF: 21 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : SUGESTÕES DE ALTERNATIVAS SAUDÁVEIS: (pág. 21)
-    ├─ Scores de Busca     : Rerank=0.1717 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=82.3028 (rank=1)
+    ├─ Scores de Busca     : Rerank=0.0090 | RRF=0.0090 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=82.3028 (rank=1)
     └─ Conteúdo Recuperado : "- Valorize as três principais refeições do dia - café da manhã, almoço e jantar. No almoço e no jantar , oriente que o usuário consuma comida feita na hora , como arroz e feijão, macarrão, carnes, ovos, legumes e verduras, farinha de mandioca, panquecas e tort..."
-  Chunk #2: [guia-alimentar-populacao-brasileira-2014-p065-01] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 65 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
-    ├─ Seção / Localização : PeQUenas reFeições (pág. 65)
-    ├─ Scores de Busca     : Rerank=0.1623 | RRF=0.0086 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=70.7489 (rank=4)
-    └─ Conteúdo Recuperado : "além das refeições principais (café da manhã, almoço e jantar), algumas pessoas podem sentir necessidade – ou mesmo terem o hábito – de fazer outras refeições ao longo do dia. Crianças e adolescentes, por se encontrarem em fase de crescimento, usualmente preci..."
+  Chunk #2: [guia-alimentar-populacao-brasileira-2014-p056-03] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 56 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
+    ├─ Seção / Localização : oPções de reFeições saUdÁVeis (pág. 56)
+    ├─ Scores de Busca     : Rerank=0.0089 | RRF=0.0089 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=74.7483 (rank=2)
+    └─ Conteúdo Recuperado : "esta seção descreve exemplos de refeições saudáveis, todos extraídos do grupo de brasileiros cujo consumo de alimentos in natura ou minimamente processados e suas preparações culinárias correspondem a pelo menos 85% do total de calorias da alimentação. Procura..."
   Chunk #3: [guia-alimentar-populacao-brasileira-2014-p043-02] (Fonte: guia-alimentar-populacao-brasileira-2014 | Pág. PDF: 43 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
     ├─ Seção / Localização : Alimentos ultraprocessados têm composição nutricional desbalanceada (pág. 43)
-    ├─ Scores de Busca     : Rerank=0.1491 | RRF=0.0087 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=74.3368 (rank=3)
+    ├─ Scores de Busca     : Rerank=0.0087 | RRF=0.0087 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=74.3368 (rank=3)
     └─ Conteúdo Recuperado : "Alimentos ultraprocessados tendem a ser muito pobres em fibras, que são essenciais para a prevenção de doenças do coração, diabetes e vários tipos de câncer. A ausência de fibras decorre da ausência ou da presença limitada de alimentos in natura ou minimamente..."
-  Chunk #4: [protocolos-guia-alimentar-fasciculo1-2021-p008-02] (Fonte: protocolos-guia-alimentar-fasciculo1-2021 | Pág. PDF: 8 | Evidência: GUIDELINE_CONSENSUS | Aprovação: aprovado)
-    ├─ Seção / Localização : O GUIA ALIMENTAR PARA A POPULAÇÃO BRASILEIRA (pág. 8)
-    ├─ Scores de Busca     : Rerank=0.1219 | RRF=0.0083 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=60.8748 (rank=6)
-    └─ Conteúdo Recuperado : "Já a segunda aborda a combinação de alimentos na forma de refeições. Com base no consumo de brasileiros com hábitos alimentares baseados predominantemente em alimentos in natura ou minimamente processados, as recomendações são voltadas especialmente para café ..."
+  Chunk #4: [louzada-ultraprocessados-micronutrientes-rsp-2015-p003-05] (Fonte: louzada-ultraprocessados-micronutrientes-rsp-2015 | Pág. PDF: 3 | Evidência: GRADE_C | Aprovação: aprovado)
+    ├─ Seção / Localização : RESULTADOS (pág. 3)
+    ├─ Scores de Busca     : Rerank=0.0085 | RRF=0.0085 | Vetorial(ChromaDB)=0.0000 (rank=None) | BM25=60.9056 (rank=5)
+    └─ Conteúdo Recuperado : "O consumo médio diário de energia dos brasileiros foi de 1.866 kcal, do qual 69,5% era proveniente de alimentos in natura ou minimamente processados, 9,0% de alimentos processados e 21,5% de alimentos ultraprocessados (Tabela 1).  Tabela 1. Médias do consumo a..."
 
 [ETAPA C — RESPOSTA FUNDAMENTADA NO CONTEÚDO RECUPERADO]
   • Motor de Síntese : local_extractive_synthesis | Modo: HYBRID_RAG_PLUS_GRAPH_TOOL | Evidência: GUIDELINE_CONSENSUS
@@ -194,7 +192,7 @@ DEMONSTRAÇÃO #3 — FLUXO COMPLETO DE RECUPERAÇÃO, FUNDAMENTAÇÃO E RASTREA
 
 - Quando necessário, para as pequenas refeições , sugira o consumo de leite ou iogurte natural, acompanhados de alimentos in natura ou minimamente processados, como frutas frescas ou secas, castanhas, amendoim ou nozes, tapioca, pamonha, etc.
 
-- • Recomende evitar ter produtos ultraprocessados ao alcance da mão , seja em casa, seja no ambiente de trabalho ou estudo. Boas opções para ter ao alcance das mãos são frutas frescas ou secas e castanhas ou nozes. além das refeições principais (café da manhã, almoço e jantar), algumas pessoas podem sentir necessidade – ou mesmo terem o hábito – de fazer outras refeições ao longo do dia.
+- • Recomende evitar ter produtos ultraprocessados ao alcance da mão , seja em casa, seja no ambiente de trabalho ou estudo. Boas opções para ter ao alcance das mãos são frutas frescas ou secas e castanhas ou nozes. esta seção descreve exemplos de refeições saudáveis, todos extraídos do grupo de brasileiros cujo consumo de alimentos in natura ou minimamente processados e suas preparações culinárias correspondem a pelo menos 85% do total de calorias da alimentação.
   • Mecanismo        :
     - Valorize as três principais refeições do dia - café da manhã, almoço e jantar. No almoço e no jantar , oriente que o usuário consuma comida feita na hora , como arroz e feijão, macarrão, carnes, ovos, legumes e verduras, farinha de mandioca, panquecas e tortas caseiras, entre outros.
 
@@ -212,24 +210,14 @@ CAMINHOS DO GRAFO CAUSAL DE 4 CAMADAS (NetworkX: Alimento ➔ Composto ➔ Mecan
 
 - Quando necessário, para as pequenas refeições , sugira o consumo de leite ou iogurte natural, acompanhados de alimentos in natura ou minimamente processados, como frutas frescas ou secas, castanhas, amendoim ou nozes, tapioca, pamonha, etc.
 
-- • Recomende evitar ter produtos ultraprocessados ao alcance da mão , seja em casa, seja no ambiente de trabalho ou estudo. Boas opções para ter ao alcance das mãos são frutas frescas ou secas e castanhas ou nozes. além das refeições principais (café da manhã, almoço e jantar), algumas pessoas podem sentir necessidade – ou mesmo terem o hábito – de fazer outras refeições ao longo do dia. Crianças e adolescentes, por se encontrarem em fase de crescimento, usualmente precisam fazer uma ou mais pequenas refeições, mas isso pode ocorrer com pessoas em outras fases do curso da vida.
+- • Recomende evitar ter produtos ultraprocessados ao alcance da mão , seja em casa, seja no ambiente de trabalho ou estudo. Boas opções para ter ao alcance das mãos são frutas frescas ou secas e castanhas ou nozes. esta seção descreve exemplos de refeições saudáveis, todos extraídos do grupo de brasileiros cujo consumo de alimentos in natura ou minimamente processados e suas preparações culinárias correspondem a pelo menos 85% do total de calorias da alimentação. Procuramos representar homens e mulheres, os vários grupos etários (a partir de dez anos), as cinco grandes regiões do País, o meio urbano e o rural e todas as classes de renda.
 
-no caso de pequenas refeições, a escolha dos alimentos a serem consumidos deve seguir as recomendações gerais deste guia quanto a privilegiar alimentos in natura ou minimamente processados, limitar os processados e evitar os ultraprocessados.
-
-Frutas frescas ou secas são excelentes alternativas, bem como leite, iogurte natural e castanhas ou nozes, na medida em que são alimentos com alto teor de nutrientes e grande poder de saciedade, além de serem práticos para transportar e consumir.
-
-Iogurte com frutas
-
-Leite batido com frutas
-
-Castanhas
-
-Salada de frutas
+os exemplos focalizam as três principais refeições do dia: café da manhã, almoço e jantar. entre os brasileiros que baseiam sua alimentação em alimentos in natura ou minimamente processados, essas três refeições fornecem cerca de 90% do total de calorias consumidas ao longo do dia.
 
 [ETAPA D — EVIDÊNCIA RASTREÁVEL DAS FONTES UTILIZADAS NA RESPOSTA]
   [1] [protocolos-guia-alimentar-fasciculo1-2021] Fascículo 1: Protocolos de uso do Guia Alimentar para a população brasileira na orientação alimentar: bases teóricas e metodológicas e protocolo para a população adulta — Ministério da Saúde; Universidade de São Paulo (2021), Seção: 'SUGESTÕES DE ALTERNATIVAS SAUDÁVEIS: (pág. 21)' (Evidência: GUIDELINE_CONSENSUS | Link: https://bvsms.saude.gov.br/bvs/publicacoes/protocolos_guia_alimentar_fasciculo1.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
-  [2] [guia-alimentar-populacao-brasileira-2014] Guia alimentar para a população brasileira — Ministério da Saúde (2014), Seção: 'PeQUenas reFeições (pág. 65)' (Evidência: GUIDELINE_CONSENSUS | Link: https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-ter-peso-saudavel/documentos/pdf/guia_alimentar_populacao_brasileira_2ed.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
+  [2] [guia-alimentar-populacao-brasileira-2014] Guia alimentar para a população brasileira — Ministério da Saúde (2014), Seção: 'oPções de reFeições saUdÁVeis (pág. 56)' (Evidência: GUIDELINE_CONSENSUS | Link: https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-ter-peso-saudavel/documentos/pdf/guia_alimentar_populacao_brasileira_2ed.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
   [3] [guia-alimentar-populacao-brasileira-2014] Guia alimentar para a população brasileira — Ministério da Saúde (2014), Seção: 'Alimentos ultraprocessados têm composição nutricional desbalanceada (pág. 43)' (Evidência: GUIDELINE_CONSENSUS | Link: https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-ter-peso-saudavel/documentos/pdf/guia_alimentar_populacao_brasileira_2ed.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
-  [4] [protocolos-guia-alimentar-fasciculo1-2021] Fascículo 1: Protocolos de uso do Guia Alimentar para a população brasileira na orientação alimentar: bases teóricas e metodológicas e protocolo para a população adulta — Ministério da Saúde; Universidade de São Paulo (2021), Seção: 'O GUIA ALIMENTAR PARA A POPULAÇÃO BRASILEIRA (pág. 8)' (Evidência: GUIDELINE_CONSENSUS | Link: https://bvsms.saude.gov.br/bvs/publicacoes/protocolos_guia_alimentar_fasciculo1.pdf | Licença: CC-BY-NC-SA-4.0 | Aprovação: aprovado)
+  [4] [louzada-ultraprocessados-micronutrientes-rsp-2015] Impacto de alimentos ultraprocessados sobre o teor de micronutrientes da dieta no Brasil — Universidade de São Paulo (2015), Seção: 'RESULTADOS (pág. 3)' (Evidência: GRADE_C | Link: https://www.scielo.br/j/rsp/a/ffxtXJygXWTrgxwyHgvqFKz/?lang=pt | DOI: 10.1590/S0034-8910.2015049006211 | Licença: CC-BY-NC-3.0 | Aprovação: aprovado)
   [5] [KG_4LAYER_PICO_GRADE] Grafo de Conhecimento de 4 Camadas (NetworkX: 4 cadeias causais Alimento ➔ Composto ➔ Mecanismo ➔ Desfecho)
 --------------------------------------------------------------------------------------------

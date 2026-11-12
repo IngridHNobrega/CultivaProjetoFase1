@@ -5,8 +5,8 @@
   "recall_questions_evaluated": 12,
   "overall_metrics": {
     "mean_doc_recall_at_k": 0.9167,
-    "mean_reciprocal_rank_mrr": 0.75,
-    "mean_keyword_coverage": 0.8812,
+    "mean_reciprocal_rank_mrr": 0.7778,
+    "mean_keyword_coverage": 0.925,
     "legal_guardrail_accuracy": 1.0
   },
   "metrics_by_category": {
@@ -14,15 +14,15 @@
       "questions": 6,
       "recall_questions_evaluated": 6,
       "mean_doc_recall_at_k": 1.0,
-      "mean_mrr": 0.9167,
-      "mean_keyword_coverage": 0.8083,
+      "mean_mrr": 1.0,
+      "mean_keyword_coverage": 0.925,
       "guardrail_accuracy": 1.0
     },
     "multi_hop_and_composition_gap": {
       "questions": 7,
       "recall_questions_evaluated": 5,
       "mean_doc_recall_at_k": 0.8,
-      "mean_mrr": 0.6,
+      "mean_mrr": 0.5667,
       "mean_keyword_coverage": 0.9286,
       "guardrail_accuracy": 1.0
     },
@@ -93,19 +93,19 @@
       "retrieved_doc_ids": [
         "guia-alimentar-populacao-brasileira-2014",
         "guia-alimentar-populacao-brasileira-2014",
-        "guia-alimentar-populacao-brasileira-2014",
-        "guia-alimentar-populacao-brasileira-2014"
+        "louzada-ultraprocessados-micronutrientes-rsp-2015",
+        "martins-ultraprocessados-rsp-2013"
       ],
       "doc_recall_at_k": 1.0,
       "reciprocal_rank": 1.0,
-      "keyword_coverage": 0.25,
+      "keyword_coverage": 0.75,
       "retrieval_mode": "HYBRID_RAG_PLUS_GRAPH_TOOL",
       "taco_records_count": 0,
       "graph_paths_count": 2,
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "devido a seus ingredientes, alimentos ultraprocessados – como biscoitos recheados, “salgadinhos de pacote”, refrigerantes e “macarrão instantâneo” – são nutricionalmente desbalanceados. Por conta de sua formulação e apresentação, tendem a s"
+      "evidence_summary_preview": "alimentos ultraprocessados “enganam” os dispositivos de que nosso organismo dispõe para regular o balanço de calorias. em essência, esses dispositivos (situados no sistema digestivo e no cérebro) são responsáveis por fazer com que as calori"
     },
     {
       "id": "Q03_DIRECT",
@@ -127,21 +127,21 @@
       "expected_removed_from_index": [],
       "recall_evaluated": true,
       "retrieved_doc_ids": [
+        "guia-alimentar-populacao-brasileira-2014",
+        "guia-alimentar-populacao-brasileira-2014",
         "protocolos-guia-alimentar-fasciculo1-2021",
-        "guia-alimentar-populacao-brasileira-2014",
-        "guia-alimentar-populacao-brasileira-2014",
-        "martins-ultraprocessados-rsp-2013"
+        "louzada-ultraprocessados-perfil-nutricional-rsp-2015"
       ],
       "doc_recall_at_k": 1.0,
-      "reciprocal_rank": 0.5,
-      "keyword_coverage": 0.8,
+      "reciprocal_rank": 1.0,
+      "keyword_coverage": 1.0,
       "retrieval_mode": "HYBRID_RAG_PLUS_GRAPH_TOOL",
       "taco_records_count": 0,
       "graph_paths_count": 4,
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "Ingredientes culinários processados | Substâncias extraídas diretamente de alimentos do primeiro grupo ou da natureza e utilizadas para temperar os alimentos e criar preparações culinárias. | Sal, açúcar, óleos vegetais e manteiga\n\nAlimento"
+      "evidence_summary_preview": "Utilize óleos, gorduras, sal e açúcar em pequenas quantidades ao temperar e cozinhar alimentos e criar preparações culinárias.\n\ndesde que utilizados com moderação em preparações culinárias com base em alimentos in natura ou minimamente proc"
     },
     {
       "id": "Q04_DIRECT",
@@ -176,7 +176,7 @@
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "Arroz, feijão, fígado bovino e abobrinha refogada\n\nSopa de legumes, farinha de mandioca e açaí\n\nSalada de folhas, arroz, feijão, ovo e maçã\n\nSalada de folhas, macarrão e galeto\n\naqui apresentamos a composição do jantar de oito brasileiros s"
+      "evidence_summary_preview": "Arroz, feijão, coxa de frango, repolho, moranga e laranja\n\nArroz, feijão, peito de frango, abóbora com quiabo e compota de jenipapo\n\nAlface, tomate, arroz, feijão, omelete, mandioca de forno\n\nArroz, feijão, carne moída com legumes\n\nCarnes d"
     },
     {
       "id": "Q05_DIRECT",
@@ -232,13 +232,13 @@
       "expected_removed_from_index": [],
       "recall_evaluated": true,
       "retrieved_doc_ids": [
-        "guia-dietas-vegetarianas-svb-2012",
         "guia-alimentar-populacao-brasileira-2014",
+        "guia-dietas-vegetarianas-svb-2012",
         "guia-dietas-vegetarianas-svb-2012",
         "guia-alimentar-populacao-brasileira-2014"
       ],
       "doc_recall_at_k": 1.0,
-      "reciprocal_rank": 0.5,
+      "reciprocal_rank": 1.0,
       "keyword_coverage": 1.0,
       "retrieval_mode": "HYBRID_RAG_PLUS_GRAPH_AND_TACO",
       "taco_records_count": 6,
@@ -246,7 +246,7 @@
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": "Resolvido pelo Passo 2 (TacoDeterministicTool): agora combina a descrição qualitativa do Capítulo 3 do Guia Alimentar com os valores determinísticos exatos por 100g da Tabela TACO 4ª Edição.",
-      "evidence_summary_preview": "Outras possibilidades de equivalência para a substituição da carne por feijões podem ser vistas na Tabela 26.\n\nTabela 26: Equivalência de substituição da carne por feijões\n\nCarne | Quantidade (190 kcal) | Feijões | Quantidade (190 kcal)\n\nBi"
+      "evidence_summary_preview": "Castanhas\n\nSalada de folhas com castanhas de caju\n\nQuibe de carne assado com nozes\n\neste grupo de alimentos inclui vários tipos de castanhas (de caju, de baru, do-brasil ou do-pará) e nozes, e também, amêndoas e amendoim.\n\nCastanhas, nozes,"
     },
     {
       "id": "Q07_MULTIHOP_GAP",
@@ -349,7 +349,7 @@
         "protocolos-guia-alimentar-fasciculo1-2021",
         "guia-alimentar-populacao-brasileira-2014",
         "guia-alimentar-populacao-brasileira-2014",
-        "protocolos-guia-alimentar-fasciculo1-2021"
+        "louzada-ultraprocessados-micronutrientes-rsp-2015"
       ],
       "doc_recall_at_k": 1.0,
       "reciprocal_rank": 0.5,
@@ -381,9 +381,9 @@
       ],
       "recall_evaluated": false,
       "retrieved_doc_ids": [
-        "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
-        "guia-alimentar-populacao-brasileira-2014",
+        "louzada-ultraprocessados-micronutrientes-rsp-2015",
         "guia-dietas-vegetarianas-svb-2012",
+        "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
         "guia-dietas-vegetarianas-svb-2012"
       ],
       "doc_recall_at_k": 0.0,
@@ -393,9 +393,9 @@
       "taco_records_count": 3,
       "graph_paths_count": 4,
       "model_used": "local_extractive_synthesis",
-      "evidence_grade": "GUIDELINE_CONSENSUS",
+      "evidence_grade": "GRADE_C",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "Tabela 5. Recomendações de suplementação para prevenção e para os casos de deficiência pós-cirurgia bariátrica e metabólica\n\nMICRO- NUTRIENTE | EX | AMES | SUPLEMENTAÇÃO DE ROTINA | DEFICIÊNCIA | OBSERVAÇÃO\n\nEXAMES LAGB/SG | QUAL EXAME | QU"
+      "evidence_summary_preview": "Deficiências de ferro, zinco e vitamina A, nutrientes presentes em menor quantidade em alimentos ultraprocessados quando comparados a alimentos in natura ou minimamente processados, estão entre os problemas. Os principais fatores que estimu"
     },
     {
       "id": "Q11_LEGAL_TRAP",
@@ -416,9 +416,9 @@
       ],
       "recall_evaluated": false,
       "retrieved_doc_ids": [
+        "moreira-rodrigues-conhecimento-nutricional-suplementacao-2014",
         "sbme-modificacoes-dieteticas-suplementos-rbme-2009",
         "sbme-modificacoes-dieteticas-suplementos-rbme-2009",
-        "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
         "moreira-rodrigues-conhecimento-nutricional-suplementacao-2014"
       ],
       "doc_recall_at_k": 0.0,
@@ -428,9 +428,9 @@
       "taco_records_count": 5,
       "graph_paths_count": 4,
       "model_used": "local_extractive_synthesis",
-      "evidence_grade": "GUIDELINE_CONSENSUS",
+      "evidence_grade": "GRADE_C",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "A creatina tem sido apontada como o suplemento nutricional de maior eficiência na melhora do desempenho em exercícios de alta intensidade e no aumento de massa muscular. Já seu uso como recurso ergogênico em atividades físicas prolongadas n"
+      "evidence_summary_preview": "Em relação aos produtos mais utilizados, de acordo com a formulação, destacou-se o consumo de aminoácidos ou concentrados protéicos, coerente com o fato de 17 entrevistados praticarem exercício físico com o objetivo de aumentar massa muscul"
     },
     {
       "id": "Q12_DIRECT",
@@ -455,7 +455,7 @@
         "guia-alimentar-populacao-brasileira-2014",
         "guia-alimentar-populacao-brasileira-2014",
         "protocolos-guia-alimentar-fasciculo1-2021",
-        "protocolos-guia-alimentar-fasciculo1-2021"
+        "souza-backes-universitarios-csc-2020"
       ],
       "doc_recall_at_k": 1.0,
       "reciprocal_rank": 1.0,
@@ -466,7 +466,7 @@
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": null,
-      "evidence_summary_preview": "o capítulo 5 examina fatores que podem ser obstáculos para a adesão das pessoas às recomendações deste guia – informação, oferta, custo, habilidades culinárias, tempo e publicidade – e propõe para sua superação a combinação de ações no plan"
+      "evidence_summary_preview": "este capítulo aborda obstáculos potenciais para a adoção das recomendações sobre a escolha de alimentos (Capítulo 2), sobre a combinação de alimentos na forma de refeições (Capítulo 3) e sobre o ato de comer e a comensalidade (Capítulo 4). "
     },
     {
       "id": "Q13_NATURAL_GRAPH",
@@ -490,7 +490,7 @@
         "guia-alimentar-populacao-brasileira-2014",
         "guia-alimentar-populacao-brasileira-2014",
         "abeso-posicionamento-tratamento-nutricional-obesidade-2022",
-        "guia-dietas-vegetarianas-svb-2012"
+        "sbme-modificacoes-dieteticas-suplementos-rbme-2009"
       ],
       "doc_recall_at_k": 0.0,
       "reciprocal_rank": 0.0,
@@ -563,13 +563,13 @@
       ],
       "recall_evaluated": true,
       "retrieved_doc_ids": [
+        "guia-dietas-vegetarianas-svb-2012",
+        "guia-dietas-vegetarianas-svb-2012",
         "guia-alimentar-populacao-brasileira-2014",
-        "guia-dietas-vegetarianas-svb-2012",
-        "guia-dietas-vegetarianas-svb-2012",
         "guia-alimentar-populacao-brasileira-2014"
       ],
       "doc_recall_at_k": 1.0,
-      "reciprocal_rank": 1.0,
+      "reciprocal_rank": 0.3333,
       "keyword_coverage": 1.0,
       "retrieval_mode": "HYBRID_RAG_PLUS_GRAPH_AND_TACO",
       "taco_records_count": 1,
@@ -577,7 +577,7 @@
       "model_used": "local_extractive_synthesis",
       "evidence_grade": "GUIDELINE_CONSENSUS",
       "baseline_limitation_note": "Pergunta cotidiana sobre processamento térmico que exige o Grafo de 4 Camadas para explicar que a fervura inativa a enzima mirosinase, impedindo a conversão da glicorafanina em sulforafano.",
-      "evidence_summary_preview": "chuchu, brócolis, maxixe e abobrinha. são também usados com leite e açúcar na preparação de bolos, pudins e tortas doces.\n\nComo as carnes e os peixes, os ovos são ricos em proteínas de alta qualidade, em minerais e em vitaminas, especialmen"
+      "evidence_summary_preview": "Legumes\n\nPimentão amarelo cru | 201,4\n\nPimentão vermelho cru | 158,2\n\nPimentão verde cru | 100,2\n\nVerduras\n\nCouve manteiga, refogada | 76,9\n\nBrócolis, cozido | 42\n\nMostarda, folha crua | 38,6\n\nFonte: Tabela Brasileira de Composição de Alime"
     },
     {
       "id": "Q16_NATURAL_GRAPH",
