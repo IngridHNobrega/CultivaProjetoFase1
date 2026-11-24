@@ -1020,7 +1020,7 @@ sources:
     conversion_status: concluida_com_ressalvas
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: pendente
   - id: who-diretrizes-atividade-fisica-sedentarismo-2020
     kind: original_only
@@ -1045,7 +1045,7 @@ sources:
     conversion_status: concluida_com_ressalvas
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: pendente
   - id: who-physical-activity-factsheet-2024
     kind: original_only
@@ -1067,7 +1067,7 @@ sources:
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
     acquisition_note: Cópia HTML da página oficial consultada nesta data; a página pode ser atualizada no mesmo endereço.
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: pendente
   - id: acsm-resistance-training-position-stand-2026
     kind: original_only
@@ -1141,7 +1141,7 @@ sources:
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
     acquisition_note: PDF integral do artigo, cópia hospedada pelo Oslo Sports Trauma Research Center; metadados, DOI e título conferidos. Não é o endpoint do editor.
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: risco_aceito_uso_academico_sem_fins_lucrativos
   - id: ioc-load-sport-illness-2016
     kind: original_only
@@ -1161,7 +1161,7 @@ sources:
       description: Créditos do PDF declaram Creative Commons Attribution Non-Commercial 4.0 (CC BY-NC 4.0).
     acquisition_status: original_obtido
     acquisition_note: PDF integral localizado no repositório institucional da University of Pretoria; DOI, título e paginação conferidos. A página 2 apresenta extração de texto escassa por conter tabela; revisar visualmente no original.
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: risco_aceito_uso_academico_sem_fins_lucrativos
     original_path: corpus/saudefisica/originais/07-2-ioc-load-illness-2016.pdf
     markdown_path: corpus/saudefisica/markdown/07-2-ioc-load-illness-2016.md
@@ -1192,7 +1192,7 @@ sources:
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
     acquisition_note: Texto integral HTML público do PubMed Central, identificado como manuscrito do autor; não é a diagramação final do editor. O endpoint PDF acionou um desafio anti-bot, então esse arquivo não foi incorporado.
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: pendente
   - id: who-package-rehabilitation-musculoskeletal-2023
     kind: original_only
@@ -1216,7 +1216,7 @@ sources:
     conversion_status: concluida_com_ressalvas
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: pendente
   - id: jospt-rotator-cuff-tendinopathy-cpg-2025
     kind: original_only
@@ -1240,7 +1240,7 @@ sources:
     retrieved_on: '2026-11-19'
     acquisition_status: original_obtido
     acquisition_note: PDF integral hospedado pela International Federation of Sports Physical Therapy; DOI e título conferidos. A cópia exibe aviso de uso pessoal e reserva de demais usos; direitos não foram liberados pelo editor.
-    approval_status: pendente
+    approval_status: aprovado
     intended_use_license_review: risco_aceito_uso_academico_sem_fins_lucrativos
 
 # intended_use_license_review (decisão de 06/11/2026, ver corpus/README.md, seção "Decisão sobre licenças e uso das fontes"):

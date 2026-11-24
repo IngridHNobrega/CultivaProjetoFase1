@@ -1,7 +1,7 @@
 # Inventário do Corpus Documental de Saúde Física — CULTIVA Move
 
 > **Contexto:** Este inventário cataloga todas as fontes científicas e institucionais que compõem o corpus documental de **Saúde Física** do projeto **CULTIVA Move**.
-> Todas as fontes encontram-se em estágio de **revisão técnica pendente** (`approval_status: pendente`) e **não estão integradas ao pipeline RAG da aplicação**, respeitando estritamente a separação arquitetural do projeto.
+> As 8 fontes prioritárias com original e transcrição obtidos foram aprovadas (`approval_status: aprovado`) e **não estão integradas ao pipeline RAG da aplicação**, respeitando estritamente a separação arquitetural do projeto.
 
 ---
 
