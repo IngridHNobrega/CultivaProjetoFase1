@@ -20,7 +20,7 @@ Detalhes, números gerados pelo sistema, diagramas e limitações em [`docs/entr
 1. **Base de conhecimento curada:** 21 documentos-fonte aprovados (mínimo exigido: 20) de 22 catalogados em [`corpus/manifest.yaml`](corpus/manifest.yaml) com origem e SHA-256, somando 1.814 Trechos no índice. A SBAN segue pendente; o `seed_guidelines` (sem origem verificável) e os resumos do PubMed (em inglês) ficaram fora do índice.
 2. **Chunking:** `corpus/scripts/prepare_rag.py` gera Trechos de cerca de 1.000 caracteres sem atravessar página nem seção, no formato do [ADR 0002](docs/adrs/0002-contrato-corpus-retriever.md), com cabeçalho contextual na indexação.
 3. **Embeddings:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (384 dimensões, cosseno), executado localmente, combinado ao BM25 por RRF.
-4. **Banco vetorial:** ChromaDB persistente em `data/vector_store/chroma_db`, índice HNSW por cosseno (`ef_search` e `ef_construction` em 200, para o resultado coincidir com a busca exata), coleção versionada pela impressão digital do conteúdo e metadados de rastreabilidade (fonte, página, link, aprovação).
+4. **Banco vetorial:** ChromaDB persistente em `data/vector_store/chroma_db`, índice HNSW por cosseno (`ef_search` e `ef_construction` em 200, para o resultado coincidir com a busca exata), coleção versionada por `corpus_version`, modelo e configuração HNSW, com metadados de rastreabilidade (fonte, página, link, aprovação). A decisão sobre migrar para pgvector continua pendente na issue #15.
 5. **Gate de aprovação:** só fontes `aprovado` entram no índice, inclusive na demonstração e no benchmark. Para testar com as pendentes, use `CULTIVA_INCLUIR_PENDENTES=true` (API e CLI).
 
 ---

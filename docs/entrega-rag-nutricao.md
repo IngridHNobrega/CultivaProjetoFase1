@@ -58,13 +58,13 @@ A página e a seção nunca são misturadas entre Trechos. É isso que permite c
 - **Modelo:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, multilíngue, **384 dimensões**, vetores normalizados (L2) e similaridade por cosseno.
 - **Execução local** (biblioteca `fastembed`, ONNX): nenhum texto sai da máquina, o que atende ao RNF05.
 - **Busca híbrida** (`src/retrieval/hybrid_retriever.py`): BM25 léxico com sinônimos clínicos e similaridade densa do ChromaDB, fundidos por **Reciprocal Rank Fusion**, seguidos de diversificação (no máximo 2 Trechos por documento). Desde a issue #35, o reranker por sobreposição de termos e nível de evidência e a mistura com TF-IDF/LSA ficam desligados por padrão (`MODO_DENSO`, `RERANK_*` em `src/config.py`); ver `eval/runs/ablacao_mrr_issue35.md`.
-- **Ainda não feito:** comparar pelo menos dois modelos em português no golden set (issue #15).
+- **Ainda não concluído (#15):** o provedor em uso é FastEmbed local, sem envio de textos para geração de embeddings; a comparação de pelo menos dois modelos no golden set ainda falta. A escolha do modelo e a migração de ChromaDB para pgvector permanecem propostas técnicas até decisão da equipe.
 
 ### 1.4 Banco vetorial
 
 - **ChromaDB** persistente (`PersistentClient`) em `data/vector_store/chroma_db`, com índice **HNSW por cosseno**.
 - **Parâmetros do HNSW:** `ef_construction` e `ef_search` em 200 (`src/config.py`). Com os padrões do ChromaDB, a busca aproximada perdia vizinhos e variava a cada carga do índice, o que quebrava o determinismo do benchmark no CI. Com 200, o top-24 das 16 perguntas coincide com a busca exata, e um teste (`tests/test_vector_store.py`) exige pelo menos 99% de coincidência e o mesmo resultado ao recarregar o índice.
-- **Coleção versionada pelo conteúdo:** o nome da coleção leva a impressão digital do modelo e dos Trechos (`cultiva_nutricao_evidencias_<hash>`; o hash muda a cada mudança nos Trechos, por isso não é citado aqui), que inclui os parâmetros do HNSW. Se o corpus, o modelo ou o índice mudarem, uma coleção nova é criada, em vez de reaproveitar vetores antigos.
+- **Coleção versionada pelo corpus:** o nome da coleção leva uma impressão digital de `corpus_version`, modelo, Trechos e parâmetros do HNSW (`cultiva_nutricao_evidencias_<hash>`). Uma mudança na versão rastreada do manifesto ou dos JSONL, no modelo, no conteúdo contextualizado ou no HNSW cria uma coleção nova, em vez de reaproveitar vetores antigos. A persistência segue em ChromaDB local; pgvector ainda não foi adotado.
 - **Metadados por vetor:** `fonte_id`, título, instituição, ano, nível de evidência, seção, página do PDF, link, DOI, licença e status de aprovação.
 - **Total indexado:** 1814 vetores de 21 documentos-fonte (só fontes aprovadas).
 
@@ -152,7 +152,7 @@ Os artefatos foram gerados **sem LLM** (síntese extrativa local e determinísti
 |---|---|
 | #4 Integrar os JSONL do corpus | Feita: `src/rag/corpus_loader.py` carrega os Trechos pelo contrato do ADR 0002. |
 | #7 Filtrar por fonte aprovada | Feita: gate no momento de montar o índice. Demonstração e benchmark usam só fontes aprovadas; `CULTIVA_INCLUIR_PENDENTES=true` inclui as pendentes. |
-| #15 Embeddings e banco vetorial | Parcial: modelo multilíngue local e ChromaDB. Falta comparar modelos em português. |
+| #15 Embeddings e banco vetorial | Parcial: FastEmbed local e ChromaDB; o ranking padrão não usa TF-IDF/SVD. A coleção agora incorpora `corpus_version` na impressão digital. Falta comparar modelos em português e decidir, em equipe, se a arquitetura migra para pgvector. |
 | #11 Rastreabilidade | Resposta inclui `corpus_version` (SHA-256 do manifesto das fontes indexadas e dos JSONL correspondentes), `prompt_version`, `model_version`, `fontes_version` e `trechos_usados` (id, fonte, página, link e título). Um `response_id` associa o registro persistido de rastreabilidade ao endpoint `POST /feedback/incorrect`. |
 | #13 Benchmark v2 | Parcial: ids esperados mapeados para as fontes do corpus. O conjunto continua o mesmo. |
 | #28 PubMed e TACO no corpus | Decidido para esta entrega: PubMed fora. O suporte a resumos no pipeline está pronto. |

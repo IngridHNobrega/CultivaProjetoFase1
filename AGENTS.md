@@ -32,6 +32,7 @@
 
 ## Provedor de LLM e dados pessoais (ADR 0003)
 
+- **Embeddings (#15):** o provedor implementado é FastEmbed/ONNX local, com `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`; consultas e corpus público são processados localmente. A busca padrão usa ChromaDB, não TF-IDF/SVD. A coleção inclui `corpus_version`, modelo, conteúdo e configuração HNSW na impressão digital para criar um índice novo quando qualquer um mudar. Ainda falta comparar modelos no golden set; pgvector permanece decisão da equipe, não implementação aprovada.
 - O padrão é **Ollama local** (`LLM_PROVIDER=ollama`, com `OLLAMA_NO_CLOUD=1`). Sem Ollama disponível, o consultor usa a síntese extrativa local, que também é o modo do CI.
 - A Groq é alternativa desativada por padrão: exige `LLM_PROVIDER=groq` **e** `ALLOW_EXTERNAL_LLM=true`, além da chave. Mesmo assim, só com entradas sintéticas ou desidentificadas, até que retenção, contrato de não treinamento e LGPD sejam verificados.
 - A máscara de dados pessoais (`src/guardrails/pii`) é defesa adicional, não anonimização.

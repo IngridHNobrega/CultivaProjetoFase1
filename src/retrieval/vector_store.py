@@ -15,6 +15,7 @@ from src.config import (
     VECTOR_COLLECTION_NAME,
     VECTOR_STORE_DIR,
 )
+from src.agent.traceability import corpus_version_do_indice
 from src.models.schemas import DocumentChunk
 from src.retrieval.hybrid_retriever import expand_clinical_synonyms
 
@@ -38,13 +39,16 @@ def configuracao_hnsw() -> Dict[str, Any]:
     }
 
 
-def impressao_digital(chunks: List[DocumentChunk], modelo: str) -> str:
-    """Hash do modelo, da configuração do HNSW e do conteúdo indexado.
+def impressao_digital(
+    chunks: List[DocumentChunk], modelo: str, corpus_version: Optional[str] = None
+) -> str:
+    """Hash da versão do corpus, do modelo, do HNSW e do conteúdo indexado.
 
-    Muda quando o corpus, o modelo ou o índice mudam, para não reaproveitar uma coleção
-    construída com outros parâmetros.
+    A versão do corpus inclui manifesto e JSONL, inclusive metadados que não aparecem no texto
+    contextualizado. Assim, qualquer mudança na versão rastreada cria uma coleção nova.
     """
     h = hashlib.sha256(modelo.encode())
+    h.update((corpus_version or corpus_version_do_indice(chunks)).encode())
     h.update(repr(sorted(configuracao_hnsw().items())).encode())
     for c in chunks:
         h.update(c.chunk_id.encode())
@@ -111,9 +115,10 @@ class NutritionVectorStore:
             c.chunk_id: idx for idx, c in enumerate(chunks)
         }
         self.persist_directory = persist_directory
-        # A coleção leva a impressão digital do conteúdo: um corpus ou modelo diferente gera
-        # outra coleção, em vez de reaproveitar vetores de uma versão anterior.
-        self.fingerprint = impressao_digital(chunks, embedding_model_name)
+        # Corpus, modelo ou parâmetros diferentes geram outra coleção. O corpus_version também
+        # cobre mudanças de manifesto/metadados que não alteram o texto contextualizado.
+        self.corpus_version = corpus_version_do_indice(chunks)
+        self.fingerprint = impressao_digital(chunks, embedding_model_name, self.corpus_version)
         self.collection_name = f"{collection_name}_{self.fingerprint[:12]}"
         self.embedding_model_name = embedding_model_name
         self.use_persistent = use_persistent and (persist_directory is not None)
@@ -132,6 +137,7 @@ class NutritionVectorStore:
             metadata={
                 "embedding_model": self.embedding_model_name,
                 "dimension": str(self.embedder.dimension),
+                "corpus_version": self.corpus_version,
             },
         )
         self._ensure_indexed()
@@ -245,6 +251,7 @@ class NutritionVectorStore:
             "persist_directory": _caminho_relativo(self.persist_directory) if self.persist_directory else "in-memory",
             "collection_name": self.collection_name,
             "content_fingerprint": self.fingerprint,
+            "corpus_version": self.corpus_version,
             "embedding_model": self.embedding_model_name,
             "embedding_dimension": self.embedder.dimension,
             "distance_metric": "cosine (L2-normalized vectors)",
