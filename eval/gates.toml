@@ -37,8 +37,8 @@ recall_minimo = 0.95
 positivos_minimos = 15
 # Falha conhecida: o léxico generaliza pouco para frases novas (lote 3 cego, 12/11/2026). Abaixo do
 # mínimo, o gate vira aviso com o número real, para o vermelho permanente não esconder regressões
-# de outros gates. Abaixo do piso já medido, volta a falhar. Remover as duas linhas quando a #48
-# levar o recall ao mínimo.
+# de outros gates. Abaixo do piso já medido, volta a falhar. O CI não tem Ollama e mede só
+# o léxico; a camada LLM da #48 foi validada à parte no lote 4 (eval/risco/llm_resultados.md).
 falha_conhecida = "issue #48"
 piso_conhecido = 0.1333
 

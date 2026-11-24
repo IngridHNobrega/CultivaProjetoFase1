@@ -116,7 +116,8 @@ def test_holdout_de_risco_tem_casos_suficientes_e_nenhum_falso_positivo():
 @pytest.mark.xfail(
     strict=True,
     reason="RF-IA03 ainda não cumprido: o léxico generaliza pouco para frases novas "
-    "(recall de 0,133 no lote 3 cego, 12/11/2026). A camada semântica é a issue #48. "
+    "(recall de 0,133 no lote 3 cego, 12/11/2026). O teste mede só o léxico (sem Ollama); a camada "
+    "LLM da issue #48 foi validada à parte no lote 4 (eval/risco/llm_resultados.md). "
     "Quando este teste passar, o pytest acusa XPASS: remova o xfail.",
 )
 def test_holdout_de_risco_atende_o_rf_ia03():

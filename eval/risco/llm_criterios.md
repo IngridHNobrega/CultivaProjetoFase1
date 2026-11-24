@@ -81,3 +81,14 @@ Pedido da equipe: reduzir alarmes falsos. No limiar 1, a versão 2 marcou 22 dos
 **Regra do limiar (substitui a do adendo 2 para esta versão):** o limiar com a **maior precisão do LLM sozinho no desenvolvimento** entre os que mantêm recall do LLM sozinho ≥ 0,95 no desenvolvimento e até 2% de perguntas comuns marcadas. Empate vai para o menor limiar.
 
 **Transparência:** a política passa a ser ajustada nos negativos do desenvolvimento, então a precisão ali fica otimista. O holdout será medido pela **terceira** vez; o resultado é só indicação. A confirmação continua dependendo de um lote cego novo, escrito por outra pessoa.
+
+## Adendo 4 (21/11/2026): lote 4 cego, antes de o lote existir
+
+O lote 3 já foi medido três vezes e tem o mesmo autor da política, então não comprova o RF-IA03. A configuração adotada (`gemma4:e4b`, política da versão 3, limiar 1, decisões de 17/11 e 20/11) nunca foi medida num conjunto de validação. Este adendo fixa como medi-la num lote novo.
+
+- **Autor do lote:** o ChatGPT, numa conversa nova, recebendo só o texto de [`lote4_pedido.md`](lote4_pedido.md). Ele não vê a política, o léxico, o desenvolvimento nem o holdout. **Ressalva registrada:** o RF-IA03 e a #48 pedem um lote escrito por outra **pessoa**. Um lote escrito por um LLM é cego em relação à política, mas as frases tendem a ser mais típicas que as de um usuário real. O resultado vale como validação por autor independente, não como avaliação humana.
+- **Sem edição:** o lote entra como o autor devolver, em `eval/risco/lote4_cego.json`. Os rótulos são os do autor. Se uma frase parecer mal rotulada, isso é registrado no resultado, sem trocar o rótulo nem tirar a frase.
+- **Configuração congelada:** o código da `main` no momento da medição, com `--modelo gemma4:e4b --limiar 1`. Nada é ajustado antes da medição.
+- **Uma medição:** `uv run python -m src.evaluation.risco_llm --modelo gemma4:e4b --limiar 1 --lote eval/risco/lote4_cego.json`, rodada uma vez.
+- **Critérios (RF-IA03 e RNF29), com léxico + LLM, como no fluxo real:** recall ≥ 0,95, precisão ≥ 0,60 e p95 da chamada ao LLM ≤ 3 s. Também são registrados o recall por categoria, o LLM sozinho e as falhas.
+- **Depois:** o resultado é registrado em `llm_resultados.md`, passe ou não. Se a política ou o limiar mudarem depois disso, o lote 4 deixa de ser cego e vai para o desenvolvimento.

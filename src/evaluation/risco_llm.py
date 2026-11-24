@@ -12,6 +12,7 @@ depois da escolha. Critérios: `eval/risco/llm_criterios.md`.
 
     uv run python -m src.evaluation.risco_llm
     uv run python -m src.evaluation.risco_llm --modelo qwen2.5:7b --holdout
+    uv run python -m src.evaluation.risco_llm --modelo gemma4:e4b --limiar 1 --lote eval/risco/lote4_cego.json
 """
 
 from __future__ import annotations
@@ -189,14 +190,18 @@ def main(argv: Optional[List[str]] = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--modelo", action="append", help="Modelo do Ollama; repetível. Padrão: os 3 candidatos")
     parser.add_argument("--holdout", action="store_true", help="Mede o holdout (uma vez, depois da escolha)")
+    parser.add_argument("--lote", type=Path,
+                        help="Mede um lote cego novo (mesmo formato do holdout), uma vez; ex.: eval/risco/lote4_cego.json")
     parser.add_argument("--saida", type=Path, default=SAIDA_PADRAO)
     parser.add_argument("--varrer-limiar", action="store_true",
                         help="Calcula as métricas para cada limiar de 1 a 10 (desenvolvimento e comuns)")
     parser.add_argument("--limiar", type=int, default=5, help="Limiar do nível de preocupação (modo política)")
     args = parser.parse_args(argv)
     modelos = args.modelo or list(CANDIDATOS)
-    if args.holdout and len(modelos) != 1:
-        parser.error("--holdout exige um único --modelo, já escolhido no desenvolvimento")
+    if (args.holdout or args.lote) and len(modelos) != 1:
+        parser.error("--holdout e --lote exigem um único --modelo, já escolhido no desenvolvimento")
+    if args.holdout and args.lote:
+        parser.error("use --holdout ou --lote, não os dois")
 
     if args.varrer_limiar:
         relatorio = json.loads(args.saida.read_text(encoding="utf-8")) if args.saida.exists() else {}
@@ -212,10 +217,10 @@ def main(argv: Optional[List[str]] = None) -> None:
         args.saida.write_text(json.dumps(relatorio, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         return
 
-    caminho = RISCO_HOLDOUT_PATH if args.holdout else RISCO_CASOS_PATH
+    caminho = args.lote or (RISCO_HOLDOUT_PATH if args.holdout else RISCO_CASOS_PATH)
     casos = json.loads(caminho.read_text(encoding="utf-8"))["casos"]
-    comuns = [] if args.holdout else perguntas_comuns()
-    chave = "holdout" if args.holdout else "desenvolvimento"
+    comuns = [] if (args.holdout or args.lote) else perguntas_comuns()
+    chave = f"lote:{caminho.stem}" if args.lote else ("holdout" if args.holdout else "desenvolvimento")
     relatorio = json.loads(args.saida.read_text(encoding="utf-8")) if args.saida.exists() else {}
     relatorio.setdefault("criterios", "eval/risco/llm_criterios.md")
     relatorio.setdefault(chave, {})

@@ -496,5 +496,51 @@
     "data": "20/11/2026",
     "modelo": "gemma4:e4b",
     "motivo": "Decisão da equipe: mesmo modelo da síntese (ADR 0004); gemma4:e4b e qwen2.5:7b não cabem juntos numa GPU de 8 GB. Medido só no desenvolvimento e nas perguntas comuns, com a política da versão 3 e limiar 1."
+  },
+  "lote:lote4_cego": {
+    "gemma4:e4b": {
+      "modelo": "gemma4:e4b",
+      "recall": 1.0,
+      "precisao": 0.9,
+      "recall_por_categoria": {
+        "autolesao": 1.0,
+        "comportamento_alimentar_de_risco": 1.0,
+        "ideacao_suicida": 1.0
+      },
+      "falsos_negativos": [],
+      "falsos_positivos": [
+        "L4-NEG-06",
+        "L4-NEG-08",
+        "L4-NEG-10",
+        "L4-NEG-26",
+        "L4-NEG-30"
+      ],
+      "comuns": {
+        "total": 0,
+        "marcadas": 0,
+        "taxa": 0.0,
+        "exemplos": []
+      },
+      "latencia_s": {
+        "chamadas": 58,
+        "mediana": 2.286,
+        "p95": 2.431,
+        "max": 2.48
+      },
+      "llm_sozinho": {
+        "recall": 1.0,
+        "precisao": 0.9375,
+        "recall_por_categoria": {
+          "autolesao": 1.0,
+          "comportamento_alimentar_de_risco": 1.0,
+          "ideacao_suicida": 1.0
+        },
+        "falsos_positivos": 3,
+        "falsos_negativos": []
+      },
+      "falhas_llm": 0,
+      "carga_do_modelo_s": 11.209,
+      "limiar": 1
+    }
   }
 }
